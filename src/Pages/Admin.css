@@ -1,0 +1,11 @@
+.form-container {
+  margin: 60px 240px;
+  padding: 23px 20px;
+  box-shadow: 20px 19px 50px 0px #0f513200, 0 6px 20px 0 rgb(0 0 0 / 7%);
+  border-radius: 10px;
+}
+
+.admin-header {
+  text-align: center;
+  margin: 40px 0 -25px 0;
+}
