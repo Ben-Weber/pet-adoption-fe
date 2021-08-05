@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     ),
 });
 
-const CssTextField = withStyles({
+const TextFieldGreen = withStyles({
   root: {
     "& label.Mui-focused": {
       color: "green",
@@ -49,7 +49,7 @@ function Login() {
 
   return (
     <form className="d-flex flex-column m-1" noValidate autoComplete="off">
-      <CssTextField
+      <TextFieldGreen
         id="emailAddress"
         {...register("emailAddress")}
         className="m-2 "
@@ -59,7 +59,7 @@ function Login() {
       />
       <span style={{ color: "red" }}>{errors.emailAddress?.message}</span>
 
-      <CssTextField
+      <TextFieldGreen
         id="Password"
         {...register("password")}
         className="m-2"

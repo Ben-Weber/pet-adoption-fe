@@ -1,7 +1,6 @@
 import React from "react";
-import "./SearchCard.css";
+import "../Pages/pages.css";
 import { Button, Card } from "react-bootstrap";
-// import { Button as ButtonMUI } from "@material-ui/core/";
 import IconButton from "@material-ui/core/IconButton";
 
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";

@@ -1,11 +1,19 @@
 import React, { useState } from "react";
+import "./pages.css";
 import { Button } from "react-bootstrap";
-import { FormControlLabel, Switch, TextField } from "@material-ui/core";
+import {
+  FormControlLabel,
+  FormControl,
+  InputLabel,
+  makeStyles,
+  MenuItem,
+  Select,
+  Switch,
+  TextField,
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
 import SearchCard from "../Components/SearchCard";
-import UseSelect from "../Components/UseSelect";
-// import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -33,12 +41,77 @@ const GreenSwitch = withStyles({
   track: {},
 })(Switch);
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    display: "block",
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    width: 350,
+  },
+}));
+
+const TextFieldGreen = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: green[700],
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: green[700],
+    },
+  },
+})(TextField);
+
+const SelectGreen = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: green[700],
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: green[700],
+    },
+  },
+})(Select);
+
 function Search() {
   const [advancedSearch, setAdvancedSearch] = useState({
     checkedA: false,
   });
 
-  const handleChange = (e) => {
+  const classes = useStyles();
+  const [selectedType, setSelectedType] = useState("");
+  const [selected, setSelected] = useState("");
+  const [openType, setOpenType] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleTypeChange = (event) => {
+    let newVal = event.target.value;
+    setSelectedType(newVal);
+  };
+
+  const handleTypeClose = () => {
+    setOpenType(false);
+  };
+
+  const handleTypeOpen = () => {
+    setOpenType(true);
+  };
+
+  const handleChange = (event) => {
+    let newVal = event.target.value;
+    setSelected(newVal);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleSwitchChange = (e) => {
     setAdvancedSearch({ ...advancedSearch, [e.target.name]: e.target.checked });
   };
 
@@ -62,16 +135,16 @@ function Search() {
                 contents, the creator, etc. Make it short and sweet, but not too
                 short so folks don't simply skip over it entirely.
               </p>
-              <p>
+              <div>
                 <a href="/myPetsPage" className="btn btn-warning my-2">
                   Adopted Pets
                 </a>
-              </p>
+              </div>
               <FormControlLabel
                 control={
                   <GreenSwitch
                     checked={advancedSearch.checkedA}
-                    onChange={handleChange}
+                    onChange={handleSwitchChange}
                     name="checkedA"
                   />
                 }
@@ -81,23 +154,51 @@ function Search() {
           </div>
 
           <form>
-            <UseSelect
-              title="Animal Type"
-              option1="Dog"
-              option2="Cat"
-              option3="Other"
-            />
+            <div className="m-2">
+              <FormControl className={classes.formControl}>
+                <InputLabel id="selected-option">Animal Type</InputLabel>
+                <SelectGreen
+                  id="animalType"
+                  {...register("animalType")}
+                  labelId="selected-option"
+                  open={openType}
+                  onClose={handleTypeClose}
+                  onOpen={handleTypeOpen}
+                  value={selectedType}
+                  onChange={handleTypeChange}
+                >
+                  <MenuItem value="Dog">Dog</MenuItem>
+                  <MenuItem value="Cat">Cat</MenuItem>
+                  <MenuItem value="Other">Other</MenuItem>
+                </SelectGreen>
+              </FormControl>
+            </div>
+
             {advancedSearch.checkedA && (
               <>
-                <UseSelect
-                  className="m-3"
-                  title="Adoption Status"
-                  option1="Adopted"
-                  option2="Fostered"
-                  option3="Both"
-                />
+                <div className="m-2">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="selected-option">
+                      Adoption Status
+                    </InputLabel>
+                    <Select
+                      id="animalStatus"
+                      {...register("animalStatus")}
+                      labelId="selected-option"
+                      open={open}
+                      onClose={handleClose}
+                      onOpen={handleOpen}
+                      value={selected}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Adopted">Adopted</MenuItem>
+                      <MenuItem value="Fostered">Fostered</MenuItem>
+                      <MenuItem value="Both">Both</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
                 <div>
-                  <TextField
+                  <TextFieldGreen
                     id="animalName"
                     {...register("animalName")}
                     className="m-3"
@@ -107,7 +208,7 @@ function Search() {
                   />
                 </div>
                 <div>
-                  <TextField
+                  <TextFieldGreen
                     id="minHeight"
                     {...register("minHeight")}
                     style={{ width: 180 }}
@@ -115,7 +216,7 @@ function Search() {
                     label="Min Height in CM"
                     type="number"
                   />
-                  <TextField
+                  <TextFieldGreen
                     id="maxHeight"
                     {...register("maxHeight")}
                     style={{ width: 180 }}
@@ -125,7 +226,7 @@ function Search() {
                   />
                 </div>
                 <div>
-                  <TextField
+                  <TextFieldGreen
                     id="minWeight"
                     {...register("minWeight")}
                     style={{ width: 180 }}
@@ -133,7 +234,7 @@ function Search() {
                     label="Min Weight in Kg"
                     type="number"
                   />
-                  <TextField
+                  <TextFieldGreen
                     id="maxWeight"
                     {...register("maxWeight")}
                     style={{ width: 180 }}
@@ -155,7 +256,7 @@ function Search() {
         </section>
 
         <div className="Search-container">
-          <div className="d-flex flex-wrap justify-content-evenly">
+          <div className="search-card-container">
             <SearchCard
               cardImg="https://ichef.bbci.co.uk/news/976/cpsprodpb/12A9B/production/_111434467_gettyimages-1143489763.jpg"
               cardTitle="marshmallow"

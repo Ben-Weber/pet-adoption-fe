@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { ButtonBase, TextField } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 // import { green } from "@material-ui/core/colors";
+
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -22,7 +25,7 @@ const schema = yup.object().shape({
   phoneNumber: yup.number().positive().integer().label("Phone Number"),
 });
 
-const CssTextField = withStyles({
+const TextFieldGreen = withStyles({
   root: {
     "& label.Mui-focused": {
       color: "green",
@@ -33,10 +36,16 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function ProfileSettings() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [openSnackBar, setOpenSnackBar] = useState(false);
 
   const {
     register,
@@ -47,6 +56,15 @@ function ProfileSettings() {
   const onSubmit = (data) => {
     console.log(data);
     setShow(false);
+    setOpenSnackBar(true);
+  };
+
+  const handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackBar(false);
   };
 
   return (
@@ -73,7 +91,7 @@ function ProfileSettings() {
             noValidate
             autoComplete="off"
           >
-            <CssTextField
+            <TextFieldGreen
               id="emailAddress"
               {...register("emailAddress")}
               className="m-2"
@@ -82,7 +100,7 @@ function ProfileSettings() {
               color={errors.emailAddress && "secondary"}
             />
             <span style={{ color: "red" }}>{errors.emailAddress?.message}</span>
-            <CssTextField
+            <TextFieldGreen
               id="firstName"
               {...register("firstName")}
               className="m-2"
@@ -91,7 +109,7 @@ function ProfileSettings() {
               color={errors.firstName && "secondary"}
             />
             <span style={{ color: "red" }}>{errors.firstName?.message}</span>
-            <CssTextField
+            <TextFieldGreen
               id="lastName"
               {...register("lastName")}
               className="m-2"
@@ -100,7 +118,7 @@ function ProfileSettings() {
               color={errors.lastName && "secondary"}
             />
             <span style={{ color: "red" }}>{errors.lastName?.message}</span>
-            <CssTextField
+            <TextFieldGreen
               id="password"
               {...register("password")}
               className="m-2"
@@ -109,7 +127,7 @@ function ProfileSettings() {
               color={errors.password && "secondary"}
             />
             <span style={{ color: "red" }}>{errors.password?.message}</span>
-            <CssTextField
+            <TextFieldGreen
               id="confirmPassword"
               {...register("confirmPassword")}
               className="m-2"
@@ -120,7 +138,7 @@ function ProfileSettings() {
             <span style={{ color: "red" }}>
               {errors.confirmPassword?.message}
             </span>
-            <CssTextField
+            <TextFieldGreen
               id="phoneNumber"
               {...register("phoneNumber")}
               className="m-2"
@@ -132,7 +150,7 @@ function ProfileSettings() {
               {errors.phoneNumber && "Phone Number must be valid"}
             </span>
 
-            <CssTextField
+            <TextFieldGreen
               placeholder="About me"
               multiline
               rows={3}
@@ -142,8 +160,7 @@ function ProfileSettings() {
               label="About Me"
               type="text"
               variant="outlined"
-              // color="green"
-            ></CssTextField>
+            ></TextFieldGreen>
 
             <div className="d-flex flex-row-reverse m-2">
               <Button
@@ -158,6 +175,15 @@ function ProfileSettings() {
           </form>
         </Modal.Body>
       </Modal>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert onClose={handleCloseSnackBar} severity="success">
+          Settings Updated!
+        </Alert>
+      </Snackbar>
     </>
   );
 }
