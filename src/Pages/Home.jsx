@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import "./Home.css";
 import Typed from "react-typed";
-// import { ButtonBase } from "@material-ui/core";
-// import { Link } from "react-router-dom";
 
 function HomeNew() {
   const [currentImg, setCurrentImg] = useState(
@@ -18,17 +16,13 @@ function HomeNew() {
             <h2>
               Welcome to PetAPet <br /> It's a <span>Family</span>
             </h2>
-            <p>
+            <div>
               <Typed
                 strings={["Your limit is 10 puppies per month, you sicko..."]}
                 typeSpeed={40}
               />
-            </p>
+            </div>
 
-            {/* <Link as={Link} to="/search">
-              {" "}
-              Search
-            </Link> */}
             <a href="/search">Learn More</a>
           </div>
           <div className="imgBox dog-img">

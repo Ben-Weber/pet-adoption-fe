@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PetPageCard() {
-  // const { petName, petImg, petBio } = props;
   const classes = useStyles();
 
   return (
@@ -30,7 +29,7 @@ function PetPageCard() {
               className="pet-img shadow-lg bg-body rounded"
               alt="dog"
             />
-            <p className="d-flex justify-content-evenly align-items-end">
+            <div className="d-flex justify-content-evenly align-items-end">
               <a href="/petPage" className="btn btn-success mt-3">
                 Adopt
               </a>
@@ -43,7 +42,7 @@ function PetPageCard() {
               <a href="/petPage" className="btn btn-outline-success">
                 Save For Later
               </a>
-            </p>
+            </div>
           </Paper>
         </Grid>
         <Grid item xs={6}>

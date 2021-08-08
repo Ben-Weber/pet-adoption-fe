@@ -10,7 +10,7 @@ function AnimalCard(props) {
       </div>
       <div className="content">
         <h2>{petName}</h2>
-        <p>{petBio}</p>
+        <div>{petBio}</div>
         <Button variant="success">See More</Button>
       </div>
     </div>

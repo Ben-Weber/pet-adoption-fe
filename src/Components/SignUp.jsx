@@ -6,11 +6,12 @@ import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import * as yup from "yup";
 const schema = yup.object().shape({
   firstName: yup.string().required().label("First Name"),
   lastName: yup.string().required().label("Last Name"),
-  emailAddress: yup.string().email().required().label("Email Address"),
+  email: yup.string().email().required().label("Email Address"),
   password: yup
     .string()
     .required("No password provided.")
@@ -19,7 +20,7 @@ const schema = yup.object().shape({
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
-  phoneNumber: yup.number().positive().integer().label("Phone Number"),
+  phone: yup.number().positive().integer().label("Phone Number"),
 });
 
 const CssTextField = withStyles({
@@ -44,23 +45,28 @@ function SignUp() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    history.push("/homeWelcome");
     setShow(false);
+    history.push("/homeWelcome");
+    const response = await axios.post(
+      "http://localhost:3300/user/addNewUser",
+      data
+    );
+    // console.log(response);
   };
 
   return (
     <form className="d-flex flex-column m-1" noValidate autoComplete="off">
       <CssTextField
-        id="emailAddress"
-        {...register("emailAddress")}
+        id="email"
+        {...register("email")}
         className="m-2"
         label="Email Address"
         type="text"
-        color={errors.emailAddress && "secondary"}
+        color={errors.email && "secondary"}
       />
-      <span style={{ color: "red" }}>{errors.emailAddress?.message}</span>
+      <span style={{ color: "red" }}>{errors.email?.message}</span>
       <CssTextField
         id="firstName"
         {...register("firstName")}
@@ -98,15 +104,15 @@ function SignUp() {
       />
       <span style={{ color: "red" }}>{errors.confirmPassword?.message}</span>
       <CssTextField
-        id="phoneNumber"
-        {...register("phoneNumber")}
+        id="phone"
+        {...register("phone")}
         className="m-2"
         label="Phone Number"
         type="number"
-        color={errors.phoneNumber && "secondary"}
+        color={errors.phone && "secondary"}
       />
       <span style={{ color: "red" }}>
-        {errors.phoneNumber && "Phone Number must be valid"}
+        {errors.phone && "Phone Number must be valid"}
       </span>
       <div className="d-flex flex-row-reverse m-2">
         <Button

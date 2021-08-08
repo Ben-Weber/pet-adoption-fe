@@ -15,13 +15,13 @@ function HomeWelcome() {
                 strings={["Hi Yonitoni. Let's get some puppies..."]}
                 typeSpeed={60}
               />
-              <p>
+              <div>
                 <a href="/myPetsPage" className="btn btn-success my-2 m-4">
                   My Pets Page
                 </a>
                 <ProfileSettings />
                 {/* https://material-ui.com/components/snackbars/ */}
-              </p>
+              </div>
             </div>
           </div>
         </section>

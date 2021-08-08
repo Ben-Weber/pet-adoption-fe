@@ -9,9 +9,9 @@ function PetPage() {
           <div className="row py-lg-5">
             <div className="col-lg-6 col-md-8 mx-auto">
               <h1 className="fw-light">Pet Page</h1>
-              <p className="lead text-muted fs-3">
+              <div className="lead text-muted fs-3">
                 Just when you thought you knew everything...
-              </p>
+              </div>
             </div>
           </div>
           <PetPageCard />

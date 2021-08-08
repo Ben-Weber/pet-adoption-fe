@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer className="fixed-bottom">
       <div className="container">
-        <p className="float-end mb-1">
+        <div className="float-end mb-1">
           <a href="#">
             {/* <img
               style={{ height: "45px" }}
@@ -12,7 +12,7 @@ function Footer() {
               alt=""
             /> */}
           </a>
-        </p>
+        </div>
       </div>
     </footer>
 
