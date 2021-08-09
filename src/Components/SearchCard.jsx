@@ -1,5 +1,6 @@
 import React from "react";
-import "../Pages/pages.css"; 
+import "../Pages/pages.css";
+// import LikeButton from "./LikeButton";
 import { Button, Card } from "react-bootstrap";
 import IconButton from "@material-ui/core/IconButton";
 

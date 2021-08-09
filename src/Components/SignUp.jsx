@@ -50,7 +50,7 @@ function SignUp() {
     setShow(false);
     history.push("/homeWelcome");
     const response = await axios.post(
-      "http://localhost:3300/user/addNewUser",
+      "http://localhost:4000/user/addNewUser",
       data
     );
     // console.log(response);
