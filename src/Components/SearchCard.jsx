@@ -1,10 +1,7 @@
 import React from "react";
 import "../Pages/pages.css";
-// import LikeButton from "./LikeButton";
+import LikeButton from "./LikeButton";
 import { Button, Card } from "react-bootstrap";
-import IconButton from "@material-ui/core/IconButton";
-
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 function SearchCard(props) {
   const { cardImg, cardTitle, cardText } = props;
@@ -21,9 +18,7 @@ function SearchCard(props) {
             <Button variant="success" href="/petPage">
               More Info
             </Button>
-            <IconButton>
-              <FavoriteBorderIcon />
-            </IconButton>
+            <LikeButton></LikeButton>
           </div>
         </Card.Body>
       </Card>

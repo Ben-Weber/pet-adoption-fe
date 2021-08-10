@@ -1,20 +1,16 @@
 import React from "react";
-import "./LikeButton.scss";
+import "./LikeButton.css";
 
 function LikeButton() {
   return (
     <>
       <input type="checkbox" id="checkbox" />
-      <label for="checkbox">
-        <svg
-          id="heart-svg"
-          viewBox="467 392 58 57"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <label htmlFor="checkbox">
+        <svg id="heart-svg" viewBox="467 392 58 57">
           <g
             id="Group"
             fill="none"
-            fill-rule="evenodd"
+            fillRule="evenodd"
             transform="translate(467 392)"
           >
             <path
