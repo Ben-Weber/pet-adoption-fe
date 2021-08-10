@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { registerUser } from "../data/api";
 import * as yup from "yup";
 const schema = yup.object().shape({
   firstName: yup.string().required().label("First Name"),
@@ -47,9 +46,13 @@ function SignUp() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
+    console.log(data);
     setShow(false);
     history.push("/homeWelcome");
-    await registerUser(data);
+    const response = await axios.post(
+      "http://localhost:4000/user/addNewUser",
+      data
+    );
   };
 
   return (
