@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
+import { addPet } from "../data/petsApi";
 
 const schema = yup.object().shape({
   Type: yup.string().required(),
@@ -27,9 +28,10 @@ function Admin() {
   } = useForm({ resolver: yupResolver(schema) });
   const history = useHistory();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     history.push("/petPage");
+    await addPet(data);
   };
 
   return (
@@ -58,7 +60,7 @@ function Admin() {
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridPassword">
-              <Form.Label>Breed of animal</Form.Label>
+              <Form.Label>Breed</Form.Label>
               <Form.Control {...register("Breed")} type="text" />
               <span style={{ color: "red" }}>{errors.Breed?.message}</span>
             </Form.Group>
@@ -104,6 +106,7 @@ function Admin() {
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Adoption Status</Form.Label>
               <Form.Select {...register("Adoption")} defaultValue="Choose...">
+                <option>Sheltered</option>
                 <option>Adopted</option>
                 <option>Fostered</option>
               </Form.Select>

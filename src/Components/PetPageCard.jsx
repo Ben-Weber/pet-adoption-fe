@@ -15,8 +15,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PetPageCard() {
+function PetPageCard(props) {
   const classes = useStyles();
+  const {
+    img,
+    name,
+    type,
+    height,
+    weight,
+    color,
+    bio,
+    hypoallergenic,
+    dietary,
+    breed,
+  } = props;
 
   return (
     <div className={classes.root}>
@@ -25,7 +37,8 @@ function PetPageCard() {
           <Paper className={classes.paper}>
             {" "}
             <img
-              src="https://bit.ly/3zVVUyr"
+              // src="https://bit.ly/3zVVUyr"
+              src={img}
               className="pet-img shadow-lg bg-body rounded"
               alt="dog"
             />
@@ -51,47 +64,52 @@ function PetPageCard() {
               <tbody>
                 <tr>
                   <th scope="row">Name</th>
-                  <td>Ollie</td>
+                  {/* <td>Ollie</td> */}
+                  <td>{name}</td>
                 </tr>
                 <tr>
                   <th scope="row">Type</th>
-                  <td>Ostrich</td>
+                  {/* <td>Ostrich</td> */}
+                  <td>{type}</td>
                 </tr>
                 <tr>
                   <th scope="row">Height</th>
-                  <td colSpan="2">2.1 – 2.8 m</td>
+                  <td colSpan="2">{height}</td>
                 </tr>
                 <tr>
                   <th scope="row">Weight</th>
-                  <td colSpan="2">63 – 140 kg</td>
+                  <td colSpan="2">{weight}</td>
                 </tr>
                 <tr>
                   <th scope="row">Color</th>
-                  <td colSpan="2">Black; With Hint Of Midnight Blue</td>
+                  <td colSpan="2">{color}</td>
                 </tr>
                 <tr>
                   <th scope="row">Bio</th>
-                  <td colSpan="2">
+                  {/* <td colSpan="2">
                     The common ostrich or simply ostrich, is a species of large
                     flightless bird native to certain large areas of Africa. It
                     is one of two extant species of ostriches, the only living
                     members of the genus Struthio in the ratite order of birds.
-                  </td>
+                  </td> */}
+                  <td colSpan="2">{bio}</td>
                 </tr>
                 <tr>
                   <th scope="row">Hypoallergenic</th>
-                  <td colSpan="2">No, not even close</td>
+                  <td colSpan="2">{hypoallergenic}</td>
                 </tr>
                 <tr>
                   <th scope="row">Dietary Restrictions</th>
-                  <td colSpan="2">
+                  {/* <td colSpan="2">
                     Typically eats plants, roots, and seeds but will also eat
                     insects, lizards, or other creatures available.
-                  </td>
+                  </td> */}
+                  <td colSpan="2">{dietary}</td>
                 </tr>
                 <tr>
                   <th scope="row">Breed</th>
-                  <td colSpan="2">Somali, of course</td>
+                  {/* <td colSpan="2">Somali, of course</td> */}
+                  <td colSpan="2">{breed}</td>
                 </tr>
               </tbody>
             </table>

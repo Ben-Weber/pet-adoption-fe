@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { registerUser } from "../data/api";
+import { registerUser } from "../data/usersApi";
 import * as yup from "yup";
 const schema = yup.object().shape({
   firstName: yup.string().required().label("First Name"),

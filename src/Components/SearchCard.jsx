@@ -1,6 +1,6 @@
 import React from "react";
 import "../Pages/pages.css";
-import LikeButton from "./LikeButton";
+// import LikeButton from "./LikeButton";
 import { Button, Card } from "react-bootstrap";
 
 function SearchCard(props) {
@@ -18,7 +18,7 @@ function SearchCard(props) {
             <Button variant="success" href="/petPage">
               More Info
             </Button>
-            <LikeButton></LikeButton>
+            {/* <LikeButton></LikeButton> */}
           </div>
         </Card.Body>
       </Card>

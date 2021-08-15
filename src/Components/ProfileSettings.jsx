@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { ButtonBase, TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
 import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -68,9 +66,9 @@ function ProfileSettings() {
 
   return (
     <>
-      <a onClick={handleShow} className="btn btn-secondary my-2 m-4">
+      <Button onClick={handleShow} className="btn btn-secondary my-2 m-4">
         Profile Settings
-      </a>
+      </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
