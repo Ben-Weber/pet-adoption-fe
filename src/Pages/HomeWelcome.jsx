@@ -20,7 +20,6 @@ function HomeWelcome() {
                   My Pets Page
                 </a>
                 <ProfileSettings />
-                {/* https://material-ui.com/components/snackbars/ */}
               </div>
             </div>
           </div>
