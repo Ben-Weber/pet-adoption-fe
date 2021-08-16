@@ -10,7 +10,7 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   firstName: yup.string().required().label("First Name"),
   lastName: yup.string().required().label("Last Name"),
-  emailAddress: yup.string().email().required().label("Email Address"),
+  email: yup.string().email().required().label("Email Address"),
   password: yup
     .string()
     .required("No password provided.")
@@ -89,14 +89,14 @@ function ProfileSettings() {
             autoComplete="off"
           >
             <TextFieldGreen
-              id="emailAddress"
-              {...register("emailAddress")}
+              id="email"
+              {...register("email")}
               className="m-2"
               label="Email Address"
               type="text"
-              color={errors.emailAddress && "secondary"}
+              color={errors.email && "secondary"}
             />
-            <span style={{ color: "red" }}>{errors.emailAddress?.message}</span>
+            <span style={{ color: "red" }}>{errors.email?.message}</span>
             <TextFieldGreen
               id="firstName"
               {...register("firstName")}

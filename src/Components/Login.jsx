@@ -6,9 +6,10 @@ import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { loginUser } from "../data/usersApi";
 import * as yup from "yup";
 const schema = yup.object().shape({
-  emailAddress: yup.string().email().required().label("Email Address"),
+  email: yup.string().email().required().label("Email Address"),
   password: yup
     .string()
     .required("No password provided.")
@@ -41,23 +42,24 @@ function Login() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    console.log("onSubmit data -", data);
     history.push("/homeWelcome");
+    await loginUser(data);
     setShow(false);
   };
 
   return (
     <form className="d-flex flex-column m-1" noValidate autoComplete="off">
       <TextFieldGreen
-        id="emailAddress"
-        {...register("emailAddress")}
+        id="email"
+        {...register("email")}
         className="m-2 "
         label="Email Address"
         type="text"
-        color={errors.emailAddress && "secondary"}
+        color={errors.email && "secondary"}
       />
-      <span style={{ color: "red" }}>{errors.emailAddress?.message}</span>
+      <span style={{ color: "red" }}>{errors.email?.message}</span>
 
       <TextFieldGreen
         id="Password"
