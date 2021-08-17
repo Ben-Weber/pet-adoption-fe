@@ -1,4 +1,3 @@
-import React from "react";
 import { useCon } from "../Context/AppContext";
 import { TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -43,7 +42,6 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    console.log("onSubmit data -", data);
     history.push("/homeWelcome");
     await loginUser(data);
     setShow(false);

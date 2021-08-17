@@ -8,16 +8,22 @@ import MyPetsPage from "./Pages/MyPetsPage";
 import PetPage from "./Pages/PetPage";
 import Admin from "./Pages/Admin";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+// import axios from "axios";
 // import Footer from "./Components/Footer";
 
 function App() {
   //todo (1) DASHBOARD Admin Page -- User List -- Pet List -- Update Pet Card if Admin (plus Snackbar)
   //todo (2) Fix Search Card min-height to be the same (maybe by img)
   //todo (3) on Search Card... text-overflow: ellipsis; on search-card. https://www.w3schools.com/cssref/css3_pr_text-overflow.asp
-  
 
   const [show, setShow] = useState(false);
   const [register, setRegister] = useState(true);
+
+  // useEffect(() => {
+  //   localStorage.getItem("token", (error, value) => {
+  //     axios.defaults.headers.common["authorization"] = value;
+  //   });
+  // }, []);
 
   return (
     <div className="App">
