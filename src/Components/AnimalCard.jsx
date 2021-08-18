@@ -3,9 +3,12 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import "./AnimalCard.css";
 
-function AnimalCard(props) {
-  const tokenHeader = localStorage.getItem("token").toString();
+let tokenHeader;
+if (localStorage.getItem("token") !== null) {
+  tokenHeader = localStorage.getItem("token").toString();
+}
 
+function AnimalCard(props) {
   const { petName, petImg, petBio } = props;
   return (
     <div className="card">
@@ -17,7 +20,6 @@ function AnimalCard(props) {
         <div>{petBio}</div>
         <Button
           onClick={async () => {
-            console.log(tokenHeader);
             const response = await axios.get("http://localhost:4000/user/new", {
               headers: { Authorization: "Bearer " + tokenHeader },
             });

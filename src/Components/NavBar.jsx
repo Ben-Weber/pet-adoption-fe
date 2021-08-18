@@ -25,6 +25,15 @@ function NavBar() {
               Search
             </Nav.Link>
           </Nav>
+          <div
+            className="btn btn-outline-success btn-sm"
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.reload();
+            }}
+          >
+            LogOut
+          </div>
           <Nav.Link style={{ color: "grey" }}>
             <ModalComponent />
           </Nav.Link>

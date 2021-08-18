@@ -19,11 +19,6 @@ function App() {
   const [show, setShow] = useState(false);
   const [register, setRegister] = useState(true);
 
-  // useEffect(() => {
-  //   localStorage.getItem("token", (error, value) => {
-  //     axios.defaults.headers.common["authorization"] = value;
-  //   });
-  // }, []);
 
   return (
     <div className="App">

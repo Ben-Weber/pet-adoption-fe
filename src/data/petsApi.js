@@ -14,7 +14,7 @@ export const addPet = async (petData) => {
 
 export const getPetInfo = async () => {
   try {
-    const response = await axios.post("http://localhost:4000/pets/getPetInfo");
+    const response = await axios.get("http://localhost:4000/pets/getPetInfo");
     return response.data;
   } catch (error) {
     console.log(error);
