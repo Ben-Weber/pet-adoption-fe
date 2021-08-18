@@ -17,7 +17,9 @@ function SearchCard(props) {
 
   return (
     <div className="search-card">
-      <Card style={{ width: "18rem" }}>
+      <Card
+        style={{ width: "18rem", minHeight: "380px", marginBottom: "15px" }}
+      >
         <Card.Img variant="top" src={cardImg} />
         <Card.Body>
           <Card.Title>{cardTitle}</Card.Title>
