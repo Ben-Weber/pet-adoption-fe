@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./pages.css";
 import { Button } from "react-bootstrap";
 import {
@@ -17,6 +17,7 @@ import SearchCard from "../Components/SearchCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { getPetInfo } from "../data/petsApi";
 const schema = yup.object().shape({
   animalType: yup.mixed().label("Animal Type"),
   adoptionStatus: yup.bool().label("Adoption Status"),
@@ -122,6 +123,14 @@ function Search() {
     console.log(data);
     // history.push("/homeWelcome")
   };
+
+  const [petInfo, setPetInfo] = useState({});
+
+  useEffect(() => {
+    getPetInfo().then((response) => {
+      setPetInfo(response);
+    });
+  }, []);
 
   return (
     <div>
@@ -257,26 +266,18 @@ function Search() {
 
         <div className="Search-container">
           <div className="search-card-container">
-            <SearchCard
-              cardImg="https://ichef.bbci.co.uk/news/976/cpsprodpb/12A9B/production/_111434467_gettyimages-1143489763.jpg"
-              cardTitle="marshmallow"
-              cardText="Some quick example text to build on the card title and make up the bulk of the card's content."
-            />
-            <SearchCard
-              cardImg="https://bit.ly/3ihwplf"
-              cardTitle="Goldeye"
-              cardText="Some quick example text to build on the card title and make up the bulk of the card's content."
-            />
-            <SearchCard
-              cardImg="https://bit.ly/3zQ0DkW"
-              cardTitle="tortly"
-              cardText="Some quick example text to build on the card title and make up the bulk of the card's content."
-            />
-            <SearchCard
-              cardImg="https://bit.ly/3f6StNq"
-              cardTitle="mufasa"
-              cardText="Some quick example text to build on the card title and make up the bulk of the card's content."
-            />
+            {petInfo.length > 0 &&
+              petInfo.map((pet, index) => {
+                return (
+                  <SearchCard
+                    key={index}
+                    cardId={pet.petId}
+                    cardImg={pet.image}
+                    cardTitle={pet.petName}
+                    cardText={pet.petBio}
+                  />
+                );
+              })}
           </div>
         </div>
       </main>

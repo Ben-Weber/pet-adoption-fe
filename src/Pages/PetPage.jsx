@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import PetPageCard from "../Components/PetPageCard";
-import { getPetInfo } from "../data/petsApi";
+import { getPetById } from "../data/petsApi";
 
 function PetPage() {
+  const location = useLocation();
+  let petId = location.state.cardId;
+
   const [petInfo, setPetInfo] = useState({});
 
   useEffect(() => {
-    getPetInfo().then((response) => {
+    getPetById(petId).then((response) => {
       setPetInfo(response[0]);
     });
   }, []);
@@ -36,18 +40,20 @@ function PetPage() {
               </div>
             </div>
           </div>
-          <PetPageCard
-            img={image}
-            name={petName}
-            type={petType}
-            height={height}
-            weight={weight}
-            color={color}
-            bio={petBio}
-            hypoallergenic={hypoallergenic}
-            dietary={dietary}
-            breed={breed}
-          />
+          {petInfo && (
+            <PetPageCard
+              img={image}
+              name={petName}
+              type={petType}
+              height={height}
+              weight={weight}
+              color={color}
+              bio={petBio}
+              hypoallergenic={hypoallergenic}
+              dietary={dietary}
+              breed={breed}
+            />
+          )}
         </section>
       </main>
     </div>

@@ -4,7 +4,7 @@ import "./pages.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { addPet } from "../data/petsApi";
 
 const schema = yup.object().shape({
@@ -26,11 +26,11 @@ function Admin() {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  const history = useHistory();
+  // const history = useHistory();
 
   const onSubmit = async (data) => {
     console.log(data);
-    history.push("/petPage");
+    // history.push("/petPage");
     await addPet(data);
   };
 

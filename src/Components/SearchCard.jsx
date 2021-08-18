@@ -2,9 +2,19 @@ import React from "react";
 import "../Pages/pages.css";
 // import LikeButton from "./LikeButton";
 import { Button, Card } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 function SearchCard(props) {
-  const { cardImg, cardTitle, cardText } = props;
+  const { cardId, cardImg, cardTitle, cardText } = props;
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push({
+      pathname: `/petPage`,
+      state: { cardId: cardId },
+    });
+  };
+
   return (
     <div className="search-card">
       <Card style={{ width: "18rem" }}>
@@ -15,7 +25,13 @@ function SearchCard(props) {
             <Card.Text>{cardText}</Card.Text>
           </div>
           <div className="d-flex justify-content-between align-items-center mr-5">
-            <Button variant="success" href="/petPage">
+            <Button
+              onClick={() => {
+                handleClick();
+              }}
+              variant="success"
+              href="/petPage"
+            >
               More Info
             </Button>
             {/* <LikeButton></LikeButton> */}
