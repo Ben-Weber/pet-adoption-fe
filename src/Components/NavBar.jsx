@@ -1,9 +1,13 @@
 import React from "react";
+import { useCon } from "../Context/AppContext";
+import { useHistory } from "react-router-dom";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ModalComponent from "./ModalComponent";
 
 function NavBar() {
+  const { currentUser } = useCon();
+  const history = useHistory();
   return (
     <>
       <Navbar>
@@ -25,18 +29,23 @@ function NavBar() {
               Search
             </Nav.Link>
           </Nav>
-          <div
-            className="btn btn-outline-success btn-sm"
-            onClick={() => {
-              localStorage.removeItem("token");
-              window.location.reload();
-            }}
-          >
-            LogOut
-          </div>
-          <Nav.Link style={{ color: "grey" }}>
-            <ModalComponent />
-          </Nav.Link>
+          {currentUser && (
+            <div
+              className="btn btn-outline-success btn-sm"
+              onClick={() => {
+                localStorage.removeItem("token");
+                window.location.reload();
+                history.push("/");
+              }}
+            >
+              LogOut
+            </div>
+          )}
+          {!currentUser && (
+            <Nav.Link style={{ color: "grey" }}>
+              <ModalComponent />
+            </Nav.Link>
+          )}
         </Container>
       </Navbar>
     </>

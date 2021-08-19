@@ -26,7 +26,6 @@ export const getPetById = async (petId) => {
     const response = await axios.get(
       `http://localhost:4000/pets/getPetById/${petId}`
     );
-    console.log("response.data", response.data);
     return response.data;
   } catch (error) {
     console.log(error);

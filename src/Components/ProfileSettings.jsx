@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCon } from "../Context/AppContext";
 import { ButtonBase, TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -8,12 +9,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 const schema = yup.object().shape({
-  firstName: yup.string().required().label("First Name"),
-  lastName: yup.string().required().label("Last Name"),
-  email: yup.string().email().required().label("Email Address"),
+  firstName: yup.string().label("First Name"),
+  lastName: yup.string().label("Last Name"),
+  email: yup.string().email().label("Email Address"),
   password: yup
     .string()
-    .required("No password provided.")
     .min(8, "Password is too short - should be 8 chars minimum.")
     .matches(/[a-zA-Z]/, "Password can only contain English letters."),
   confirmPassword: yup
@@ -41,8 +41,8 @@ function ProfileSettings() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [openSnackBar, setOpenSnackBar] = useState(false);
+  const { currentUser } = useCon();
 
   const {
     register,
@@ -63,6 +63,12 @@ function ProfileSettings() {
 
     setOpenSnackBar(false);
   };
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
+
+  const { bio, email, firstName, lastName, password, phone } = currentUser;
 
   return (
     <>
@@ -95,6 +101,7 @@ function ProfileSettings() {
               label="Email Address"
               type="text"
               color={errors.email && "secondary"}
+              defaultValue={email}
             />
             <span style={{ color: "red" }}>{errors.email?.message}</span>
             <TextFieldGreen
@@ -104,6 +111,7 @@ function ProfileSettings() {
               label="First Name"
               type="text"
               color={errors.firstName && "secondary"}
+              defaultValue={firstName}
             />
             <span style={{ color: "red" }}>{errors.firstName?.message}</span>
             <TextFieldGreen
@@ -113,24 +121,27 @@ function ProfileSettings() {
               label="Last Name"
               type="text"
               color={errors.lastName && "secondary"}
+              defaultValue={lastName}
             />
             <span style={{ color: "red" }}>{errors.lastName?.message}</span>
             <TextFieldGreen
               id="password"
               {...register("password")}
               className="m-2"
-              label="Password"
+              label="Change Password"
               type="password"
               color={errors.password && "secondary"}
+              defaultValue={password}
             />
             <span style={{ color: "red" }}>{errors.password?.message}</span>
             <TextFieldGreen
               id="confirmPassword"
               {...register("confirmPassword")}
               className="m-2"
-              label="Retype Password"
+              label="Confirm Change Password"
               type="password"
               color={errors.confirmPassword && "secondary"}
+              defaultValue={password}
             />
             <span style={{ color: "red" }}>
               {errors.confirmPassword?.message}
@@ -142,6 +153,7 @@ function ProfileSettings() {
               label="Phone Number"
               type="number"
               color={errors.phoneNumber && "secondary"}
+              defaultValue={phone}
             />
             <span style={{ color: "red" }}>
               {errors.phoneNumber && "Phone Number must be valid"}
@@ -157,6 +169,7 @@ function ProfileSettings() {
               label="About Me"
               type="text"
               variant="outlined"
+              defaultValue={bio}
             ></TextFieldGreen>
 
             <div className="d-flex flex-row-reverse m-2">

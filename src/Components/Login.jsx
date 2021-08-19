@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginUser } from "../data/usersApi";
 import * as yup from "yup";
+import { useEffect } from "react";
 const schema = yup.object().shape({
   email: yup.string().email().required().label("Email Address"),
   password: yup
@@ -33,7 +34,7 @@ const TextFieldGreen = withStyles({
 function Login() {
   const history = useHistory();
 
-  const { setShow } = useCon();
+  const { currentUser, setCurrentUser, setShow } = useCon();
 
   const {
     register,
@@ -43,9 +44,15 @@ function Login() {
 
   const onSubmit = async (data) => {
     history.push("/homeWelcome");
-    await loginUser(data);
+    const user = await loginUser(data);
+    setCurrentUser(user);
     setShow(false);
   };
+
+  useEffect(() => {
+    console.log("currentUser", currentUser);
+    console.log("currentUser.userId", currentUser.userId);
+  }, [currentUser]);
 
   return (
     <form className="d-flex flex-column m-1" noValidate autoComplete="off">

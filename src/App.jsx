@@ -8,7 +8,6 @@ import MyPetsPage from "./Pages/MyPetsPage";
 import PetPage from "./Pages/PetPage";
 import Admin from "./Pages/Admin";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import axios from "axios";
 // import Footer from "./Components/Footer";
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
 
   const [show, setShow] = useState(false);
   const [register, setRegister] = useState(true);
-
+  const [currentUser, setCurrentUser] = useState("");
 
   return (
     <div className="App">
@@ -28,11 +27,12 @@ function App() {
           setShow: setShow,
           register: register,
           setRegister: setRegister,
+          currentUser: currentUser,
+          setCurrentUser: setCurrentUser,
         }}
       >
         <Router>
           <NavBar />
-          {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Home} />
           <Route path="/search" exact component={Search} />
           <Route path="/homeWelcome" exact component={HomeWelcome} />
