@@ -31,3 +31,15 @@ export const getPetById = async (petId) => {
     console.log(error);
   }
 };
+
+export const updatePetStatus = async (ownership) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:4000/pets/updatePetStatus",
+      ownership
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

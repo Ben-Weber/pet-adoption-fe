@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "./PetPageCard.css";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { updatePetStatus } from "../data/petsApi";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +19,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+let userId;
+if (localStorage.getItem("userId") !== null) {
+  userId = localStorage.getItem("userId").toString();
+}
+
 function PetPageCard(props) {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [petStatus, setPetStatus] = useState("");
+  const location = useLocation();
+  let petId = location.state.cardId;
   const classes = useStyles();
   const {
     img,
@@ -30,93 +47,128 @@ function PetPageCard(props) {
     breed,
   } = props;
 
+  const handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackBar(false);
+  };
+
+  useEffect(() => {
+    if (petStatus !== "") {
+      const ownership = { userId, petStatus, petId };
+      updatePetStatus(ownership);
+    }
+  }, [petStatus]);
+
+  const handleAdopt = () => {
+    setPetStatus("Adopted");
+    setOpenSnackBar(true);
+  };
+
+  const handleFoster = () => {
+    setPetStatus("Fostered");
+    setOpenSnackBar(true);
+  };
+
+  const handleReturn = () => {
+    setPetStatus("Returned");
+    setOpenSnackBar(true);
+  };
+
+  const handleSaveForLater = () => {
+    setPetStatus("Saved For Later");
+    setOpenSnackBar(true);
+  };
+
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            {" "}
-            <img
-              // src="https://bit.ly/3zVVUyr"
-              src={img}
-              className="pet-img shadow-lg bg-body rounded"
-              alt="dog"
-            />
-            <div className="d-flex justify-content-evenly align-items-end">
-              <a href="/petPage" className="btn btn-success mt-3">
-                Adopt
-              </a>
-              <a href="/petPage" className="btn btn-success">
-                Foster
-              </a>
-              <a href="/petPage" className="btn btn-secondary">
-                Return
-              </a>
-              <a href="/petPage" className="btn btn-outline-success">
-                Save For Later
-              </a>
-            </div>
-          </Paper>
+    <>
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}>
+              {" "}
+              <img
+                src={img}
+                className="pet-img shadow-lg bg-body rounded"
+                alt="dog"
+              />
+              <div className="d-flex justify-content-evenly align-items-end">
+                <div className="btn btn-success mt-3" onClick={handleAdopt}>
+                  Adopt
+                </div>
+                <div className="btn btn-success" onClick={handleFoster}>
+                  Foster
+                </div>
+                <div className="btn btn-secondary" onClick={handleReturn}>
+                  Return
+                </div>
+                <div
+                  className="btn btn-outline-success"
+                  onClick={handleSaveForLater}
+                >
+                  Save For Later
+                </div>
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}>
+              <table className="table ">
+                <tbody>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td>{name}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Type</th>
+                    <td>{type}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Height</th>
+                    <td colSpan="2">{height}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Weight</th>
+                    <td colSpan="2">{weight}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Color</th>
+                    <td colSpan="2">{color}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Bio</th>
+                    <td colSpan="2">{bio}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Hypoallergenic</th>
+                    <td colSpan="2">{hypoallergenic}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Dietary Restrictions</th>
+                    <td colSpan="2">{dietary}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Breed</th>
+                    <td colSpan="2">{breed}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <table className="table ">
-              <tbody>
-                <tr>
-                  <th scope="row">Name</th>
-                  {/* <td>Ollie</td> */}
-                  <td>{name}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Type</th>
-                  {/* <td>Ostrich</td> */}
-                  <td>{type}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Height</th>
-                  <td colSpan="2">{height}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Weight</th>
-                  <td colSpan="2">{weight}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Color</th>
-                  <td colSpan="2">{color}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Bio</th>
-                  {/* <td colSpan="2">
-                    The common ostrich or simply ostrich, is a species of large
-                    flightless bird native to certain large areas of Africa. It
-                    is one of two extant species of ostriches, the only living
-                    members of the genus Struthio in the ratite order of birds.
-                  </td> */}
-                  <td colSpan="2">{bio}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Hypoallergenic</th>
-                  <td colSpan="2">{hypoallergenic}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Dietary Restrictions</th>
-                  {/* <td colSpan="2">
-                    Typically eats plants, roots, and seeds but will also eat
-                    insects, lizards, or other creatures available.
-                  </td> */}
-                  <td colSpan="2">{dietary}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Breed</th>
-                  {/* <td colSpan="2">Somali, of course</td> */}
-                  <td colSpan="2">{breed}</td>
-                </tr>
-              </tbody>
-            </table>
-          </Paper>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert onClose={handleCloseSnackBar} severity="success">
+          {name} is {petStatus} Successfuly!
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 

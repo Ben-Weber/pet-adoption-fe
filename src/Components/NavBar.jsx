@@ -34,8 +34,9 @@ function NavBar() {
               className="btn btn-outline-success btn-sm"
               onClick={() => {
                 localStorage.removeItem("token");
-                window.location.reload();
+                localStorage.removeItem("userId");
                 history.push("/");
+                window.location.reload();
               }}
             >
               LogOut
