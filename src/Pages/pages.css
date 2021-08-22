@@ -24,3 +24,22 @@
 .search-card {
   min-height: 380px;
 }
+
+.pillFilled {
+  cursor: pointer;
+  border-radius: 50rem;
+  color: #fff;
+  background-color: #198754;
+  padding: 0.5rem;
+  margin: 1rem;
+  border: 1px solid #198754;
+}
+
+.pillEmpty {
+  cursor: pointer;
+  border-radius: 50rem;
+  color: #6c757d;
+  padding: 0.5rem;
+  margin: 1rem;
+  border: 1px solid #fff;
+}

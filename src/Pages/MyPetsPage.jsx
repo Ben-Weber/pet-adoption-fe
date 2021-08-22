@@ -14,6 +14,9 @@ function MyPetsPage() {
             <h1 className="fw-light">My Pets Page</h1>
             <div className="d-flex justify-content-evenly">
               <h5
+                style={{
+                  cursor: "pointer",
+                }}
                 className={
                   myPets
                     ? "text-success rounded-pill border border-success m-3 p-2"
@@ -26,6 +29,9 @@ function MyPetsPage() {
                 My Pets
               </h5>
               <h5
+                style={{
+                  cursor: "pointer",
+                }}
                 className={
                   !myPets
                     ? "text-success rounded-pill border border-success m-3 p-2"

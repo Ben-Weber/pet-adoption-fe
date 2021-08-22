@@ -25,9 +25,8 @@ function SearchCard(props) {
     });
   };
 
-  const handleClicked = () => {
+  const handleLiked = () => {
     setSelected((prevSelected) => !prevSelected);
-    console.log(selected);
     petAndUserId();
   };
 
@@ -64,11 +63,9 @@ function SearchCard(props) {
               More Info
             </Button>
             {currentUser && (
-              <>
-                <div onClick={() => handleClicked()}>
-                  <LikeButton />
-                </div>
-              </>
+              <div onClick={() => handleLiked()}>
+                <LikeButton />
+              </div>
             )}
           </div>
         </Card.Body>
