@@ -49,6 +49,7 @@ function SignUp() {
     setShow(false);
     history.push("/homeWelcome");
     await registerUser(data);
+    alert("Please Login")
   };
 
   return (

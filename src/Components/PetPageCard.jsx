@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import { Button } from "react-bootstrap";
 import "./PetPageCard.css";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { updatePetStatus } from "../data/petsApi";
 import { useLocation } from "react-router-dom";
+import { useCon } from "../Context/AppContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,10 +31,12 @@ if (localStorage.getItem("userId") !== null) {
 }
 
 function PetPageCard(props) {
+  const { currentUser } = useCon();
+
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [petStatus, setPetStatus] = useState("");
   const location = useLocation();
-  let petId = location.state.cardId;
+  let petId = location.state.petId;
   const classes = useStyles();
   const {
     img,
@@ -94,23 +98,28 @@ function PetPageCard(props) {
                 className="pet-img shadow-lg bg-body rounded"
                 alt="dog"
               />
-              <div className="d-flex justify-content-evenly align-items-end">
-                <div className="btn btn-success mt-3" onClick={handleAdopt}>
-                  Adopt
+              {currentUser && (
+                <div className="d-flex justify-content-evenly align-items-end">
+                  <Button
+                    className="btn btn-success mt-3"
+                    onClick={handleAdopt}
+                  >
+                    Adopt
+                  </Button>
+                  <Button className="btn btn-success" onClick={handleFoster}>
+                    Foster
+                  </Button>
+                  <Button className="btn btn-secondary" onClick={handleReturn}>
+                    Return
+                  </Button>
+                  <Button
+                    className="btn btn-outline-success"
+                    onClick={handleSaveForLater}
+                  >
+                    Save For Later
+                  </Button>
                 </div>
-                <div className="btn btn-success" onClick={handleFoster}>
-                  Foster
-                </div>
-                <div className="btn btn-secondary" onClick={handleReturn}>
-                  Return
-                </div>
-                <div
-                  className="btn btn-outline-success"
-                  onClick={handleSaveForLater}
-                >
-                  Save For Later
-                </div>
-              </div>
+              )}
             </Paper>
           </Grid>
           <Grid item xs={6}>

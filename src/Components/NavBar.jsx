@@ -1,9 +1,8 @@
 import React from "react";
-import { useCon } from "../Context/AppContext";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import ModalComponent from "./ModalComponent";
+import { useCon } from "../Context/AppContext";
 
 function NavBar() {
   const { currentUser } = useCon();
@@ -22,12 +21,24 @@ function NavBar() {
             </a>
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
-              Home
-            </Nav.Link>
+            {currentUser && (
+              <Nav.Link as={Link} to="/homeWelcome">
+                Home
+              </Nav.Link>
+            )}
+            {!currentUser && (
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+            )}
             <Nav.Link as={Link} to="/search">
               Search
             </Nav.Link>
+            {currentUser && (
+              <Nav.Link as={Link} to="/myPetsPage">
+                My Favorite Page
+              </Nav.Link>
+            )}
           </Nav>
           {currentUser && (
             <div

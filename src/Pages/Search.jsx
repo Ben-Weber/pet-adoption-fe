@@ -17,7 +17,8 @@ import SearchCard from "../Components/SearchCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { getPetInfo } from "../data/petsApi";
+import { getPetInfo, isChecked } from "../data/petsApi";
+// import { useCon } from "../Context/AppContext";
 const schema = yup.object().shape({
   animalType: yup.mixed().label("Animal Type"),
   adoptionStatus: yup.bool().label("Adoption Status"),
@@ -79,6 +80,9 @@ function Search() {
   const [advancedSearch, setAdvancedSearch] = useState({
     checkedA: false,
   });
+
+  // const { currentUser } = useCon();
+  // const { userId } = currentUser;
 
   const classes = useStyles();
   const [selectedType, setSelectedType] = useState("");
@@ -268,13 +272,19 @@ function Search() {
           <div className="search-card-container">
             {petInfo.length > 0 &&
               petInfo.map((pet, index) => {
+                // let favChecked;
+                // favChecked = isChecked(pet.petId, userId).then(res=>{
+                //   console.log("res", res[0]["COUNT(petId)"]);
+                //   return res[0]["COUNT(petId)"];
+                // })
                 return (
                   <SearchCard
                     key={index}
-                    cardId={pet.petId}
-                    cardImg={pet.image}
-                    cardTitle={pet.petName}
-                    cardText={pet.petBio}
+                    petId={pet.petId}
+                    petImg={pet.image}
+                    petName={pet.petName}
+                    petBio={pet.petBio}
+                    // Checked={favChecked}
                   />
                 );
               })}

@@ -5,7 +5,7 @@ import { getPetById } from "../data/petsApi";
 
 function PetPage() {
   const location = useLocation();
-  let petId = location.state.cardId;
+  let petId = location.state.petId;
 
   const [petInfo, setPetInfo] = useState({});
 
