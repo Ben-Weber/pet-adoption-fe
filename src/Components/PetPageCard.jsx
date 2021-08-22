@@ -25,14 +25,9 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-let userId;
-if (localStorage.getItem("userId") !== null) {
-  userId = localStorage.getItem("userId").toString();
-}
-
 function PetPageCard(props) {
   const { currentUser } = useCon();
-
+  const { userId } = currentUser;
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [petStatus, setPetStatus] = useState("");
   const location = useLocation();
@@ -112,12 +107,12 @@ function PetPageCard(props) {
                   <Button className="btn btn-secondary" onClick={handleReturn}>
                     Return
                   </Button>
-                  <Button
+                  <div
                     className="btn btn-outline-success"
                     onClick={handleSaveForLater}
                   >
                     Save For Later
-                  </Button>
+                  </div>
                 </div>
               )}
             </Paper>
@@ -174,7 +169,7 @@ function PetPageCard(props) {
         onClose={handleCloseSnackBar}
       >
         <Alert onClose={handleCloseSnackBar} severity="success">
-          {name} is {petStatus} Successfuly!
+          {name} is {petStatus} Successfully!
         </Alert>
       </Snackbar>
     </>

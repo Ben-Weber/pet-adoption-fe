@@ -62,23 +62,22 @@ export const getUserFavoritePets = async (userId) => {
       `http://localhost:4000/pets/favoritePets`,
       { params: { userId } }
     );
-    console.log("getUserFavoritePets", response);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const isChecked = async (petId, userId) => {
-  try {
-    const response = await axios.get(`http://localhost:4000/pets/isChecked`, {
-      params: { petId, userId },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const isChecked = async (petId, userId) => {
+//   try {
+//     const response = await axios.get(`http://localhost:4000/pets/isChecked`, {
+//       params: { petId, userId },
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const updatePetStatus = async (ownership) => {
   try {

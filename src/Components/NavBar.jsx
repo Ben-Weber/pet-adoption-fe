@@ -7,18 +7,21 @@ import { useCon } from "../Context/AppContext";
 function NavBar() {
   const { currentUser } = useCon();
   const history = useHistory();
+  const changePage = () => {
+    history.push("/");
+  };
   return (
     <>
       <Navbar>
         <Container>
           <Navbar.Brand>
-            <a
-              href="/"
+            <div
+              onClick={changePage}
               className="logo"
-              style={{ color: "#017143", fontWeight: "800" }}
+              style={{ color: "#017143", fontWeight: "800", cursor: "pointer" }}
             >
               PetApet
-            </a>
+            </div>
           </Navbar.Brand>
           <Nav className="me-auto">
             {currentUser && (

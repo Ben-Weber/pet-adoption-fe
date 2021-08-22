@@ -1,12 +1,16 @@
-import React from "react";
-import { useState } from "react";
-import "./Home.css";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Typed from "react-typed";
+import "./Home.css";
 
 function HomeNew() {
   const [currentImg, setCurrentImg] = useState(
     "https://i.ibb.co/k6JKL7q/2.png"
   );
+  const history = useHistory();
+  const changePage = () => {
+    history.push("/search");
+  };
   return (
     <div>
       <section className="home-section">
@@ -23,7 +27,9 @@ function HomeNew() {
               />
             </div>
 
-            <a href="/search">Learn More</a>
+            <div className="learnMore" onClick={changePage}>
+              Learn More
+            </div>
           </div>
           <div className="imgBox dog-img">
             <img src={currentImg && currentImg} alt="Dog" border="0" />

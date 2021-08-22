@@ -17,7 +17,10 @@ import SearchCard from "../Components/SearchCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { getPetInfo, isChecked } from "../data/petsApi";
+import {
+  getPetInfo,
+  // isChecked
+} from "../data/petsApi";
 // import { useCon } from "../Context/AppContext";
 const schema = yup.object().shape({
   animalType: yup.mixed().label("Animal Type"),
@@ -147,11 +150,6 @@ function Search() {
                 Something short and leading about the collection below—its
                 contents, the creator, etc. Make it short and sweet, but not too
                 short so folks don't simply skip over it entirely.
-              </div>
-              <div>
-                <a href="/myPetsPage" className="btn btn-warning my-2">
-                  Adopted Pets
-                </a>
               </div>
               <FormControlLabel
                 control={

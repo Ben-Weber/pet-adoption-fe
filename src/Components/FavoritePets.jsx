@@ -10,9 +10,6 @@ function FavoritePets() {
 
   const [petInfo, setPetInfo] = useState({});
 
-  console.log("petInfo", petInfo);
-  console.log("currentUser", currentUser);
-
   useEffect(() => {
     currentUser &&
       getUserFavoritePets(userId).then((response) => {
@@ -24,12 +21,13 @@ function FavoritePets() {
     <div className="Card-container">
       <div className="d-flex flex-wrap justify-content-evenly">
         {petInfo.length > 0 &&
-          petInfo.map((pet) => {
+          petInfo.map((pet, index) => {
             return (
               <AnimalCard
                 petImg={pet.image}
                 petName={pet.petName}
                 petBio={pet.petBio}
+                key={index}
               />
             );
           })}

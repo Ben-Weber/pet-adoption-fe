@@ -1,0 +1,9 @@
+.textOverflow {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  width: 250px;
+  /* margin: 0 0 2em 0; */
+  overflow: hidden;
+  text-align: left;
+}

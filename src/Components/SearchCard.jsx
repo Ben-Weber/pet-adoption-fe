@@ -1,14 +1,16 @@
-import React from "react";
-// import LikeButton from "./LikeButton";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useCon } from "../Context/AppContext";
 import { addFavoritePet, removeFavoritePet } from "../data/petsApi";
+import LikeButton from "./LikeButton";
+import "./SearchCard.css";
 
 function SearchCard(props) {
   const { petId, petImg, petName, petBio } = props;
   const { currentUser } = useCon();
   const { userId } = currentUser;
+  const [selected, setSelected] = useState(true);
 
   const data = {
     petId: petId,
@@ -23,13 +25,14 @@ function SearchCard(props) {
     });
   };
 
-  const handleChange = (e) => {
-    let inputChecked = e.target.checked;
-    petAndUserId(inputChecked);
+  const handleClicked = () => {
+    setSelected((prevSelected) => !prevSelected);
+    console.log(selected);
+    petAndUserId();
   };
 
-  const petAndUserId = (inputChecked) => {
-    if (inputChecked) {
+  const petAndUserId = () => {
+    if (selected) {
       addFavoritePet(data);
     } else {
       removeFavoritePet(data);
@@ -49,9 +52,9 @@ function SearchCard(props) {
         <Card.Body>
           <Card.Title>{petName}</Card.Title>
           <div>
-            <Card.Text>{petBio}</Card.Text>
+            <Card.Text className="textOverflow">{petBio}</Card.Text>
           </div>
-          <div className="d-flex justify-content-between align-items-center mr-5">
+          <div className="d-flex justify-content-between align-items-center mr-5 mt-3">
             <Button
               onClick={() => {
                 handleClick();
@@ -61,15 +64,12 @@ function SearchCard(props) {
               More Info
             </Button>
             {currentUser && (
-              <input
-                type="checkbox"
-                id="pet"
-                name="pet"
-                value={petId}
-                onChange={(e) => handleChange(e)}
-              />
+              <>
+                <div onClick={() => handleClicked()}>
+                  <LikeButton />
+                </div>
+              </>
             )}
-            {/* <LikeButton></LikeButton> */}
           </div>
         </Card.Body>
       </Card>

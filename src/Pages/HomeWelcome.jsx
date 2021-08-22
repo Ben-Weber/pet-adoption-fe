@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import Typed from "react-typed";
 import ProfileSettings from "../Components/ProfileSettings";
 import { useCon } from "../Context/AppContext";
@@ -7,6 +8,12 @@ import { useCon } from "../Context/AppContext";
 function HomeWelcome() {
   const { currentUser } = useCon();
   const { firstName, lastName } = currentUser;
+  
+  const history = useHistory();
+  const changePage = () => {
+    history.push("/myPetsPage");
+  };
+
   return (
     <div>
       <main>
@@ -24,7 +31,10 @@ function HomeWelcome() {
                 />
               )}
               <div>
-                <Button href="/myPetsPage" className="btn btn-success my-2 m-4">
+                <Button
+                  className="btn btn-success my-2 m-4"
+                  onClick={changePage}
+                >
                   My Pets Page
                 </Button>
                 <ProfileSettings />
