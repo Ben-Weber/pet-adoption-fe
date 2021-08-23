@@ -25,6 +25,16 @@
   min-height: 380px;
 }
 
+.form-select.form-select {
+  border: none;
+  border-bottom: 1px solid;
+  border-radius: 0;
+  color: #a3a3a3;
+  width: 350px;
+}
+
+/* My Pets Page */
+
 .pillFilled {
   cursor: pointer;
   border-radius: 50rem;

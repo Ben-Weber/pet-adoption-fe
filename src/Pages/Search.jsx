@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./pages.css";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import {
   FormControlLabel,
   FormControl,
@@ -17,11 +17,7 @@ import SearchCard from "../Components/SearchCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-  getPetInfo,
-  // isChecked
-} from "../data/petsApi";
-// import { useCon } from "../Context/AppContext";
+import { getPetInfo, searchResult } from "../data/petsApi";
 const schema = yup.object().shape({
   animalType: yup.mixed().label("Animal Type"),
   adoptionStatus: yup.bool().label("Adoption Status"),
@@ -84,9 +80,6 @@ function Search() {
     checkedA: false,
   });
 
-  // const { currentUser } = useCon();
-  // const { userId } = currentUser;
-
   const classes = useStyles();
   const [selectedType, setSelectedType] = useState("");
   const [selected, setSelected] = useState("");
@@ -123,11 +116,11 @@ function Search() {
     setAdvancedSearch({ ...advancedSearch, [e.target.name]: e.target.checked });
   };
 
-  // const history = useHistory();
   const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
     console.log(data);
+    searchResult(data);
     // history.push("/homeWelcome")
   };
 

@@ -90,3 +90,18 @@ export const updatePetStatus = async (ownership) => {
     console.log(error);
   }
 };
+
+export const searchResult = async (data) => {
+  try {
+    console.log(data);
+    const response = await axios.post(
+      "http://localhost:4000/pets/searchResult",
+      data
+    );
+    console.log("response", response);
+    console.log("response.data", response.data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
