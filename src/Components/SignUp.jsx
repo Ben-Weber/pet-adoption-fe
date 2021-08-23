@@ -4,7 +4,6 @@ import { TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerUser } from "../data/usersApi";
 import * as yup from "yup";
@@ -35,9 +34,7 @@ const CssTextField = withStyles({
 })(TextField);
 
 function SignUp() {
-  const history = useHistory();
-
-  const { setShow } = useCon();
+  const { setShow, setRegisterNotice } = useCon();
 
   const {
     register,
@@ -47,9 +44,8 @@ function SignUp() {
 
   const onSubmit = async (data) => {
     setShow(false);
-    history.push("/homeWelcome");
     await registerUser(data);
-    alert("Please Login")
+    setRegisterNotice(true);
   };
 
   return (

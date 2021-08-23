@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import "../Pages/pages.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { addPet } from "../data/petsApi";
+import axios from "axios";
 
 const schema = yup.object().shape({
   Type: yup.string().required(),
@@ -17,9 +18,11 @@ const schema = yup.object().shape({
   Color: yup.string().required(),
   Adoption: yup.string(),
   Hypoallergenic: yup.boolean(),
+  Image: yup.string(),
 });
 
 function Admin_AddPet() {
+  const [imageUrl, setImageUrl] = useState();
   const {
     register,
     handleSubmit,
@@ -27,8 +30,23 @@ function Admin_AddPet() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    console.log(data);
-    await addPet(data);
+    const finaldata = { ...data, ...imageUrl };
+    console.log(finaldata);
+    await addPet(finaldata);
+  };
+
+  const handleImg = (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("upload_preset", "xmab4ddh");
+    formData.append("file", file);
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/petapet/image/upload", formData)
+      .then((response) => {
+        setImageUrl({ imageUrl: response.data.secure_url });
+        console.log("imageUrl state", response.data.secure_url);
+      });
   };
 
   return (
@@ -117,7 +135,13 @@ function Admin_AddPet() {
 
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Animal Image</Form.Label>
-              <Form.Control type="file" size="sm" />
+              <Form.Control
+                onChange={(e) => {
+                  handleImg(e);
+                }}
+                type="file"
+                size="sm"
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" id="formGridCheckbox">

@@ -19,6 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
   const [loggedIn, setLoggedIn] = useState("");
   const [allPetInfo, setAllPetInfo] = useState({});
+  const [registerNotice, setRegisterNotice] = useState("");
 
   useEffect(() => {
     getPetInfo().then((response) => {
@@ -48,6 +49,8 @@ function App() {
           setAllPetInfo: setAllPetInfo,
           loggedIn: loggedIn,
           setLoggedIn: setLoggedIn,
+          registerNotice: registerNotice,
+          setRegisterNotice: setRegisterNotice,
         }}
       >
         <Router>
