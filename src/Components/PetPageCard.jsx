@@ -26,8 +26,8 @@ function Alert(props) {
 }
 
 function PetPageCard(props) {
-  const { currentUser } = useCon();
-  const { userId } = currentUser;
+  const { loggedIn } = useCon();
+  const userId = localStorage.getItem("userId");
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [petStatus, setPetStatus] = useState("");
   const location = useLocation();
@@ -93,7 +93,7 @@ function PetPageCard(props) {
                 className="pet-img shadow-lg bg-body rounded"
                 alt="dog"
               />
-              {currentUser && (
+              {loggedIn && (
                 <div className="d-flex justify-content-evenly align-items-end">
                   <Button
                     className="btn btn-success mt-3"

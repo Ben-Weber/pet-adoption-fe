@@ -6,7 +6,7 @@ import ProfileSettings from "../Components/ProfileSettings";
 import { useCon } from "../Context/AppContext";
 
 function HomeWelcome() {
-  const { currentUser } = useCon();
+  const { currentUser, loggedIn } = useCon();
   const { firstName, lastName } = currentUser;
   
   const history = useHistory();
@@ -21,7 +21,7 @@ function HomeWelcome() {
           <div className="row py-lg-5">
             <div className="col-lg-6 col-md-8 mx-auto">
               <h1 className="fw-light">Home Page</h1>
-              {currentUser && (
+              {loggedIn && (
                 <Typed
                   className="lead text-muted"
                   strings={[

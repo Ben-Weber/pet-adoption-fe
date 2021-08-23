@@ -5,13 +5,13 @@ import { useCon } from "../Context/AppContext";
 import "./AnimalCard.css";
 
 function FavoritePets() {
-  const { currentUser } = useCon();
-  const { userId } = currentUser;
+  const { loggedIn } = useCon();
+  const userId = localStorage.getItem("userId");
 
   const [petInfo, setPetInfo] = useState({});
 
   useEffect(() => {
-    currentUser &&
+    loggedIn &&
       getUserFavoritePets(userId).then((response) => {
         setPetInfo(response);
       });

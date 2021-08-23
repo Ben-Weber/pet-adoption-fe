@@ -5,7 +5,7 @@ import ModalComponent from "./ModalComponent";
 import { useCon } from "../Context/AppContext";
 
 function NavBar() {
-  const { currentUser } = useCon();
+  const { loggedIn } = useCon();
   const history = useHistory();
   const changePage = () => {
     history.push("/");
@@ -24,12 +24,12 @@ function NavBar() {
             </div>
           </Navbar.Brand>
           <Nav className="me-auto">
-            {currentUser && (
+            {loggedIn && (
               <Nav.Link as={Link} to="/homeWelcome">
                 Home
               </Nav.Link>
             )}
-            {!currentUser && (
+            {!loggedIn && (
               <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
@@ -37,18 +37,17 @@ function NavBar() {
             <Nav.Link as={Link} to="/search">
               Search
             </Nav.Link>
-            {currentUser && (
+            {loggedIn && (
               <Nav.Link as={Link} to="/myPetsPage">
                 My Favorite Page
               </Nav.Link>
             )}
           </Nav>
-          {currentUser && (
+          {loggedIn && (
             <div
               className="btn btn-outline-success btn-sm"
               onClick={() => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("userId");
+                localStorage.clear();
                 history.push("/");
                 window.location.reload();
               }}
@@ -56,7 +55,7 @@ function NavBar() {
               LogOut
             </div>
           )}
-          {!currentUser && (
+          {!loggedIn && (
             <Nav.Link style={{ color: "grey" }}>
               <ModalComponent />
             </Nav.Link>

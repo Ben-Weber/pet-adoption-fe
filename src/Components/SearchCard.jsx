@@ -8,8 +8,8 @@ import "./SearchCard.css";
 
 function SearchCard(props) {
   const { petId, petImg, petName, petBio } = props;
-  const { currentUser } = useCon();
-  const { userId } = currentUser;
+  const { loggedIn } = useCon();
+  const userId = localStorage.getItem("userId");
   const [selected, setSelected] = useState(true);
 
   const data = {
@@ -62,7 +62,7 @@ function SearchCard(props) {
             >
               More Info
             </Button>
-            {currentUser && (
+            {loggedIn && (
               <div onClick={() => handleLiked()}>
                 <LikeButton />
               </div>

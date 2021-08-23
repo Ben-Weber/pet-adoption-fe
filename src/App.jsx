@@ -17,12 +17,21 @@ function App() {
   const [show, setShow] = useState(false);
   const [register, setRegister] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
+  const [loggedIn, setLoggedIn] = useState("");
   const [allPetInfo, setAllPetInfo] = useState({});
 
   useEffect(() => {
     getPetInfo().then((response) => {
       setAllPetInfo(response);
     });
+  }, []);
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("userId");
+    if (loggedInUser) {
+      setLoggedIn(loggedInUser);
+      console.log("LS in currentUser: ", loggedInUser);
+    }
   }, []);
 
   return (
@@ -37,6 +46,8 @@ function App() {
           setCurrentUser: setCurrentUser,
           allPetInfo: allPetInfo,
           setAllPetInfo: setAllPetInfo,
+          loggedIn: loggedIn,
+          setLoggedIn: setLoggedIn,
         }}
       >
         <Router>

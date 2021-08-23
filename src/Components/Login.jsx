@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useCon } from "../Context/AppContext";
 import { TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -34,7 +34,7 @@ const TextFieldGreen = withStyles({
 function Login() {
   const history = useHistory();
 
-  const { currentUser, setCurrentUser, setShow } = useCon();
+  const { setCurrentUser, setShow, setLoggedIn } = useCon();
 
   const {
     register,
@@ -46,13 +46,9 @@ function Login() {
     history.push("/homeWelcome");
     const user = await loginUser(data);
     setCurrentUser(user);
+    setLoggedIn(user);
     setShow(false);
   };
-
-  useEffect(() => {
-    console.log("currentUser", currentUser);
-    console.log("currentUser.userId", currentUser.userId);
-  }, [currentUser]);
 
   return (
     <form className="d-flex flex-column m-1" noValidate autoComplete="off">

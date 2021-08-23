@@ -64,10 +64,6 @@ function ProfileSettings() {
     setOpenSnackBar(false);
   };
 
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
-
   const { bio, email, firstName, lastName, password, phone } = currentUser;
 
   return (
