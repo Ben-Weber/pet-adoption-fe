@@ -68,17 +68,6 @@ export const getUserFavoritePets = async (userId) => {
   }
 };
 
-// export const isChecked = async (petId, userId) => {
-//   try {
-//     const response = await axios.get(`http://localhost:4000/pets/isChecked`, {
-//       params: { petId, userId },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 export const updatePetStatus = async (ownership) => {
   try {
     const response = await axios.post(
@@ -93,12 +82,11 @@ export const updatePetStatus = async (ownership) => {
 
 export const searchResult = async (data) => {
   try {
-    console.log(data);
+    console.log("data sent to API:", data);
     const response = await axios.post(
       "http://localhost:4000/pets/searchResult",
       data
     );
-    console.log("response", response);
     console.log("response.data", response.data);
     return response;
   } catch (error) {

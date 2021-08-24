@@ -118,19 +118,18 @@ function Search() {
 
   const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    searchResult(data);
-    // history.push("/homeWelcome")
-  };
-
+  const [search, setSearch] = useState(false);
   const [petInfo, setPetInfo] = useState({});
 
-  useEffect(() => {
-    getPetInfo().then((response) => {
-      setPetInfo(response);
-    });
-  }, []);
+  const onSubmit = async (data) => {
+    let searchResulttt;
+    searchResulttt = await searchResult(data);
+    setPetInfo(searchResulttt.data);
+    setSearch(true);
+    console.log("searchResult.data", searchResulttt.data);
+    console.log("petInfo", petInfo);
+    return searchResulttt;
+  };
 
   return (
     <div>
@@ -211,6 +210,29 @@ function Search() {
                     type="search"
                   />
                 </div>
+
+                {/* <div className="m-2">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="selected-option">
+                      Height in CM
+                    </InputLabel>
+                    <Select
+                      id="animalStatus"
+                      {...register("animalStatus")}
+                      labelId="selected-option"
+                      open={open}
+                      onClose={handleClose}
+                      onOpen={handleOpen}
+                      value={selected}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Adopted">Adopted</MenuItem>
+                      <MenuItem value="Fostered">Fostered</MenuItem>
+                      <MenuItem value="Both">Both</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div> */}
+
                 <div>
                   <TextFieldGreen
                     id="minHeight"
@@ -263,11 +285,6 @@ function Search() {
           <div className="search-card-container">
             {petInfo.length > 0 &&
               petInfo.map((pet, index) => {
-                // let favChecked;
-                // favChecked = isChecked(pet.petId, userId).then(res=>{
-                //   console.log("res", res[0]["COUNT(petId)"]);
-                //   return res[0]["COUNT(petId)"];
-                // })
                 return (
                   <SearchCard
                     key={index}
@@ -275,7 +292,6 @@ function Search() {
                     petImg={pet.image}
                     petName={pet.petName}
                     petBio={pet.petBio}
-                    // Checked={favChecked}
                   />
                 );
               })}
