@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { useCon } from "../Context/AppContext";
-import Admin_AddPet from "../Components/Admin_AddPet";
+import AdminAddPet from "../Components/AdminAddPet";
+import AdminPetsList from "../Components/AdminPetsList";
+import AdminUsersList from "../Components/UsersList/AdminUsersList";
 import "./pages.css";
 
 function Admin() {
-  const { allPetInfo } = useCon();
-
   const [PetList, setPetList] = useState(true);
   const [UserList, setUserList] = useState(false);
   const [AddPet, setAddPet] = useState(false);
@@ -61,11 +60,11 @@ function Admin() {
         </div>
       </section>
 
-      {PetList && <div>Pet List</div>}
+      {PetList && <AdminPetsList />}
 
-      {UserList && <div>User List</div>}
+      {UserList && <AdminUsersList />}
 
-      {AddPet && <Admin_AddPet />}
+      {AddPet && <AdminAddPet />}
     </>
   );
 }

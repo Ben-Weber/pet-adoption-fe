@@ -27,3 +27,12 @@ export const loginUser = async (userData) => {
     console.log(error);
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    const response = await axios.get("http://localhost:4000/user/getAllUsers");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

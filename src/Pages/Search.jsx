@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./pages.css";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import {
   FormControlLabel,
   FormControl,
@@ -17,7 +17,7 @@ import SearchCard from "../Components/SearchCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { getPetInfo, searchResult } from "../data/petsApi";
+import { searchResult } from "../data/petsApi";
 const schema = yup.object().shape({
   animalType: yup.mixed().label("Animal Type"),
   adoptionStatus: yup.bool().label("Adoption Status"),
@@ -76,14 +76,21 @@ const SelectGreen = withStyles({
 })(Select);
 
 function Search() {
+  const classes = useStyles();
+  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
+
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("");
+  const [openType, setOpenType] = useState(false);
+  const [selectedType, setSelectedType] = useState("");
+
   const [advancedSearch, setAdvancedSearch] = useState({
     checkedA: false,
   });
-  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
 
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("");
+  const handleSwitchChange = (e) => {
+    setAdvancedSearch({ ...advancedSearch, [e.target.name]: e.target.checked });
+  };
 
   const handleChange = (event) => {
     let newVal = event.target.value;
@@ -98,13 +105,6 @@ function Search() {
     setOpen(true);
   };
 
-  const handleSwitchChange = (e) => {
-    setAdvancedSearch({ ...advancedSearch, [e.target.name]: e.target.checked });
-  };
-
-  const [openType, setOpenType] = useState(false);
-  const [selectedType, setSelectedType] = useState("");
-
   const handleTypeChange = (event) => {
     let newVal = event.target.value;
     setSelectedType(newVal);
@@ -118,15 +118,13 @@ function Search() {
     setOpenType(true);
   };
 
-  const [search, setSearch] = useState(false);
   const [petInfo, setPetInfo] = useState({});
 
   const onSubmit = async (data) => {
+    setPetInfo("");
     let searchResulttt;
     searchResulttt = await searchResult(data);
     setPetInfo(searchResulttt.data);
-    setSearch(true);
-    return searchResulttt;
   };
 
   return (

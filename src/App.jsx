@@ -8,7 +8,9 @@ import MyPetsPage from "./Pages/MyPetsPage";
 import PetPage from "./Pages/PetPage";
 import Admin from "./Pages/Admin";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import BackToTop from "./Components/BackToTop";
 import { getPetInfo } from "./data/petsApi";
+import { getAllUsers } from "./data/usersApi";
 // import Footer from "./Components/Footer";
 
 function App() {
@@ -20,10 +22,17 @@ function App() {
   const [loggedIn, setLoggedIn] = useState("");
   const [allPetInfo, setAllPetInfo] = useState({});
   const [registerNotice, setRegisterNotice] = useState("");
+  const [AllUsersInfo, SetAllUsersInfo] = useState({});
 
   useEffect(() => {
     getPetInfo().then((response) => {
       setAllPetInfo(response);
+    });
+  }, []);
+
+  useEffect(() => {
+    getAllUsers().then((response) => {
+      SetAllUsersInfo(response);
     });
   }, []);
 
@@ -51,9 +60,12 @@ function App() {
           setLoggedIn: setLoggedIn,
           registerNotice: registerNotice,
           setRegisterNotice: setRegisterNotice,
+          AllUsersInfo: AllUsersInfo,
+          SetAllUsersInfo: SetAllUsersInfo,
         }}
       >
         <Router>
+          <BackToTop />
           <NavBar />
           <Route path="/" exact component={Home} />
           <Route path="/search" exact component={Search} />
