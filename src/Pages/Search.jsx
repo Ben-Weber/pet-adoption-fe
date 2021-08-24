@@ -79,25 +79,11 @@ function Search() {
   const [advancedSearch, setAdvancedSearch] = useState({
     checkedA: false,
   });
+  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
 
   const classes = useStyles();
-  const [selectedType, setSelectedType] = useState("");
-  const [selected, setSelected] = useState("");
-  const [openType, setOpenType] = useState(false);
   const [open, setOpen] = useState(false);
-
-  const handleTypeChange = (event) => {
-    let newVal = event.target.value;
-    setSelectedType(newVal);
-  };
-
-  const handleTypeClose = () => {
-    setOpenType(false);
-  };
-
-  const handleTypeOpen = () => {
-    setOpenType(true);
-  };
+  const [selected, setSelected] = useState("");
 
   const handleChange = (event) => {
     let newVal = event.target.value;
@@ -116,7 +102,21 @@ function Search() {
     setAdvancedSearch({ ...advancedSearch, [e.target.name]: e.target.checked });
   };
 
-  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
+  const [openType, setOpenType] = useState(false);
+  const [selectedType, setSelectedType] = useState("");
+
+  const handleTypeChange = (event) => {
+    let newVal = event.target.value;
+    setSelectedType(newVal);
+  };
+
+  const handleTypeClose = () => {
+    setOpenType(false);
+  };
+
+  const handleTypeOpen = () => {
+    setOpenType(true);
+  };
 
   const [search, setSearch] = useState(false);
   const [petInfo, setPetInfo] = useState({});
@@ -126,8 +126,6 @@ function Search() {
     searchResulttt = await searchResult(data);
     setPetInfo(searchResulttt.data);
     setSearch(true);
-    console.log("searchResult.data", searchResulttt.data);
-    console.log("petInfo", petInfo);
     return searchResulttt;
   };
 
@@ -210,28 +208,6 @@ function Search() {
                     type="search"
                   />
                 </div>
-
-                {/* <div className="m-2">
-                  <FormControl className={classes.formControl}>
-                    <InputLabel id="selected-option">
-                      Height in CM
-                    </InputLabel>
-                    <Select
-                      id="animalStatus"
-                      {...register("animalStatus")}
-                      labelId="selected-option"
-                      open={open}
-                      onClose={handleClose}
-                      onOpen={handleOpen}
-                      value={selected}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value="Adopted">Adopted</MenuItem>
-                      <MenuItem value="Fostered">Fostered</MenuItem>
-                      <MenuItem value="Both">Both</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div> */}
 
                 <div>
                   <TextFieldGreen

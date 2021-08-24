@@ -87,7 +87,6 @@ export const searchResult = async (data) => {
       "http://localhost:4000/pets/searchResult",
       data
     );
-    console.log("response.data", response.data);
     return response;
   } catch (error) {
     console.log(error);
