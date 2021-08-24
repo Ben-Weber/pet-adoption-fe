@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { addPet } from "../data/petsApi";
 import axios from "axios";
+import { useCon } from "../Context/AppContext";
 
 const schema = yup.object().shape({
   Type: yup.string().required(),
@@ -22,6 +23,8 @@ const schema = yup.object().shape({
 });
 
 function Admin_AddPet() {
+  const { setPetAdded } = useCon();
+
   const [imageUrl, setImageUrl] = useState();
   const {
     register,
@@ -33,6 +36,7 @@ function Admin_AddPet() {
     const finaldata = { ...data, ...imageUrl };
     console.log(finaldata);
     await addPet(finaldata);
+    setPetAdded(true);
   };
 
   const handleImg = (e) => {
@@ -61,7 +65,7 @@ function Admin_AddPet() {
                 <Form.Select {...register("Type")} defaultValue="Choose...">
                   <option>Dog</option>
                   <option>Cat</option>
-                  <option>Other</option>
+                  <option>Any</option>
                 </Form.Select>
               </Form.Group>
 

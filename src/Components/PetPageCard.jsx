@@ -76,10 +76,10 @@ function PetPageCard(props) {
     setOpenSnackBar(true);
   };
 
-  const handleSaveForLater = () => {
-    setPetStatus("Saved For Later");
-    setOpenSnackBar(true);
-  };
+  // const handleSaveForLater = () => {
+  //   setPetStatus("Saved For Later");
+  //   setOpenSnackBar(true);
+  // };
 
   return (
     <>
@@ -107,12 +107,12 @@ function PetPageCard(props) {
                   <Button className="btn btn-secondary" onClick={handleReturn}>
                     Return
                   </Button>
-                  <div
+                  {/* <div
                     className="btn btn-outline-success"
                     onClick={handleSaveForLater}
                   >
                     Save For Later
-                  </div>
+                  </div> */}
                 </div>
               )}
             </Paper>

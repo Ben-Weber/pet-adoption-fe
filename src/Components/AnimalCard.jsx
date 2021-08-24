@@ -5,10 +5,10 @@ import { useHistory } from "react-router-dom";
 import "./AnimalCard.css";
 
 function AnimalCard(props) {
-  const { petName, petImg, petBio } = props;
+  const { petId, petName, petImg, petBio } = props;
   const history = useHistory();
-  const changePage = () => {
-    history.push("/myPetsPage");
+  const changePage = (petId) => {
+    history.push({ pathname: `petPage`, state: { petId: petId } });
   };
   return (
     <div className="card">
@@ -18,7 +18,7 @@ function AnimalCard(props) {
       <div className="content">
         <h2>{petName}</h2>
         <div className="TextOverflow">{petBio}</div>
-        <Button onClick={changePage}>More Info</Button>
+        <Button onClick={() => changePage(petId)}>More Info</Button>
       </div>
     </div>
   );

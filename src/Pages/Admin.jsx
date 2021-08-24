@@ -1,13 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import AdminAddPet from "../Components/AdminAddPet";
 import AdminPetsList from "../Components/AdminPetsList";
 import AdminUsersList from "../Components/UsersList/AdminUsersList";
 import "./pages.css";
+import { useCon } from "../Context/AppContext";
 
 function Admin() {
+  const { petAdded, setPetAdded } = useCon();
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+
   const [PetList, setPetList] = useState(true);
   const [UserList, setUserList] = useState(false);
   const [AddPet, setAddPet] = useState(false);
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackBar(false);
+  };
+
+  useEffect(() => {
+    if (petAdded) {
+      setOpenSnackBar(true);
+      setTimeout(() => {
+        setPetAdded(false);
+      }, 1000);
+    }
+  }, [petAdded]);
 
   return (
     <>
@@ -65,6 +91,16 @@ function Admin() {
       {UserList && <AdminUsersList />}
 
       {AddPet && <AdminAddPet />}
+
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert onClose={handleCloseSnackBar} severity="success">
+          Pet Added Successfully!
+        </Alert>
+      </Snackbar>
     </>
   );
 }

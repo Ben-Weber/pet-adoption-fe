@@ -155,7 +155,7 @@ function Search() {
           <form>
             <div className="m-2">
               <FormControl className={classes.formControl}>
-                <InputLabel id="selected-option">Animal Type</InputLabel>
+                <InputLabel id="selected-option">Pet Type</InputLabel>
                 <SelectGreen
                   id="animalType"
                   {...register("animalType")}
@@ -168,7 +168,7 @@ function Search() {
                 >
                   <MenuItem value="Dog">Dog</MenuItem>
                   <MenuItem value="Cat">Cat</MenuItem>
-                  <MenuItem value="Other">Other</MenuItem>
+                  <MenuItem value="Any">Any</MenuItem>
                 </SelectGreen>
               </FormControl>
             </div>
@@ -177,9 +177,7 @@ function Search() {
               <>
                 <div className="m-2">
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="selected-option">
-                      Adoption Status
-                    </InputLabel>
+                    <InputLabel id="selected-option">Pet Status</InputLabel>
                     <Select
                       id="animalStatus"
                       {...register("animalStatus")}
@@ -190,9 +188,9 @@ function Search() {
                       value={selected}
                       onChange={handleChange}
                     >
-                      <MenuItem value="Adopted">Adopted</MenuItem>
+                      <MenuItem value="Sheltered">Sheltered</MenuItem>
                       <MenuItem value="Fostered">Fostered</MenuItem>
-                      <MenuItem value="Both">Both</MenuItem>
+                      <MenuItem value="Adopted">Adopted</MenuItem>
                     </Select>
                   </FormControl>
                 </div>

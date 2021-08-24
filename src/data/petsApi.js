@@ -82,7 +82,6 @@ export const updatePetStatus = async (ownership) => {
 
 export const searchResult = async (data) => {
   try {
-    console.log("data sent to API:", data);
     const response = await axios.post(
       "http://localhost:4000/pets/searchResult",
       data

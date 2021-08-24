@@ -11,11 +11,10 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import BackToTop from "./Components/BackToTop";
 import { getPetInfo } from "./data/petsApi";
 import { getAllUsers } from "./data/usersApi";
+// import axios from "axios";
 // import Footer from "./Components/Footer";
 
 function App() {
-  //todo (1) DASHBOARD Admin Page -- User List -- Pet List -- Update Pet Card if Admin (plus Snackbar)
-
   const [show, setShow] = useState(false);
   const [register, setRegister] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
@@ -23,6 +22,7 @@ function App() {
   const [allPetInfo, setAllPetInfo] = useState({});
   const [registerNotice, setRegisterNotice] = useState("");
   const [AllUsersInfo, SetAllUsersInfo] = useState({});
+  const [petAdded, setPetAdded] = useState("");
 
   useEffect(() => {
     getPetInfo().then((response) => {
@@ -44,6 +44,13 @@ function App() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   localStorage.getItem("token", (error, value) => {
+  //     axios.defaults.headers.common["authorization"] = value;
+  //     console.log("token in header");
+  //   });
+  // }, []);
+
   return (
     <div className="App">
       <AppContext.Provider
@@ -62,6 +69,8 @@ function App() {
           setRegisterNotice: setRegisterNotice,
           AllUsersInfo: AllUsersInfo,
           SetAllUsersInfo: SetAllUsersInfo,
+          petAdded: petAdded,
+          setPetAdded: setPetAdded,
         }}
       >
         <Router>

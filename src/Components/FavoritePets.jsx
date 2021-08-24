@@ -27,6 +27,7 @@ function FavoritePets() {
                 petImg={pet.image}
                 petName={pet.petName}
                 petBio={pet.petBio}
+                petId={pet.petId}
                 key={index}
               />
             );
