@@ -40,7 +40,7 @@ function NavBar() {
             </Nav.Link>
             {loggedIn && (
               <Nav.Link as={Link} to="/myPetsPage">
-                My Favorite Page
+                My Pets Page
               </Nav.Link>
             )}
             {isAdmin == 1 && (

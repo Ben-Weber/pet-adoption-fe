@@ -2,9 +2,11 @@ import axios from "axios";
 
 export const registerUser = async (userData) => {
   try {
+    // const tokenHeader = localStorage.getItem("token").toString();
     const response = await axios.post(
       "http://localhost:4000/user/signup",
       userData
+      // { headers: { Authorization: "Bearer " + tokenHeader } }
     );
     console.log("FE axios.post 'response' from api.js:", response);
   } catch (error) {
@@ -14,9 +16,11 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (userData) => {
   try {
+    // const tokenHeader = localStorage.getItem("token").toString();
     const response = await axios.post(
       "http://localhost:4000/user/login",
       userData
+      // { headers: { Authorization: "Bearer " + tokenHeader } }
     );
     const user = response.data.user;
     const token = response.data.token;
@@ -33,6 +37,7 @@ export const loginUser = async (userData) => {
 
 export const getAllUsers = async () => {
   try {
+    // const tokenHeader = localStorage.getItem("token").toString();
     const response = await axios.get("http://localhost:4000/user/getAllUsers");
     return response.data;
   } catch (error) {

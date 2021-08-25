@@ -11,6 +11,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import BackToTop from "./Components/BackToTop";
 import { getPetInfo, getUserAdoptedPets } from "./data/petsApi";
 import { getAllUsers } from "./data/usersApi";
+import PrivateRoute from "./Components/PrivateRoute";
+
 // import axios from "axios";
 // import Footer from "./Components/Footer";
 
@@ -91,10 +93,10 @@ function App() {
           <NavBar />
           <Route path="/" exact component={Home} />
           <Route path="/search" exact component={Search} />
-          <Route path="/homeWelcome" exact component={HomeWelcome} />
-          <Route path="/myPetsPage" exact component={MyPetsPage} />
+          <PrivateRoute path="/homeWelcome" exact component={HomeWelcome} />
+          <PrivateRoute path="/myPetsPage" exact component={MyPetsPage} />
           <Route path="/petPage" exact component={PetPage} />
-          <Route path="/admin" exact component={Admin} />
+          <PrivateRoute path="/admin" exact component={Admin} />
         </Router>
       </AppContext.Provider>
       {/* <Footer /> */}

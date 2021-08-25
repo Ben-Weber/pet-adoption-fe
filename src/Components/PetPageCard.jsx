@@ -95,19 +95,25 @@ function PetPageCard(props) {
   const handleAdopt = () => {
     setPetStatus("Adopted");
     setOpenSnackBar(true);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
 
   const handleFoster = () => {
     setPetStatus("Fostered");
     setOpenSnackBar(true);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
 
   const handleReturn = () => {
     setPetStatus("Sheltered");
     setOpenSnackBar(true);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
 
   const [input, setInput] = useState({});
@@ -237,7 +243,7 @@ function PetPageCard(props) {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500,
+          timeout: 750,
         }}
       >
         <Fade in={open}>
@@ -374,7 +380,9 @@ function PetPageCard(props) {
                     console.log(input);
                     updatePetInfo(input);
                     handleCloseModal();
-                    window.location.reload();
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 750);
                   }}
                 >
                   Update
