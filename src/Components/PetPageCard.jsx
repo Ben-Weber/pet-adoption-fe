@@ -374,6 +374,7 @@ function PetPageCard(props) {
                     console.log(input);
                     updatePetInfo(input);
                     handleCloseModal();
+                    window.location.reload();
                   }}
                 >
                   Update
