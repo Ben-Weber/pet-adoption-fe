@@ -9,3 +9,28 @@
   margin: 10px 205px;
   border-radius: 10px;
 }
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  text-align: center;
+  padding: 0 8px 0 8px;
+}
+
+.petImgContainer {
+  display: flex;
+  max-width: 100%;
+  width: 150px;
+}
+
+.petImgContainer img {
+  max-width: 100%;
+  width: 100px;
+  margin: 10px;
+  border-radius: 15px;
+}

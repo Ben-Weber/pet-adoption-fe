@@ -43,11 +43,17 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    history.push("/homeWelcome");
-    const user = await loginUser(data);
-    setCurrentUser(user);
-    setLoggedIn(user);
     setShow(false);
+    loginUser(data).then((user) => {
+      setCurrentUser(user);
+      setLoggedIn(user);
+
+      if (user.isAdmin) {
+        history.push("/admin");
+      } else {
+        history.push("/homeWelcome");
+      }
+    });
   };
 
   return (

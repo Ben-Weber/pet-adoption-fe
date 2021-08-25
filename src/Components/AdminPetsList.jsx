@@ -5,8 +5,6 @@ import { useCon } from "../Context/AppContext";
 
 function AdminPetsList() {
   const { allPetInfo } = useCon();
-  // console.log(allPetInfo);
-  // const { petId } = allPetInfo;
   const history = useHistory();
 
   const handleClick = (petId) => {

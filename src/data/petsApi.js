@@ -92,6 +92,18 @@ export const searchResult = async (data) => {
   }
 };
 
+export const getUserAdoptedPets = async (userId) => {
+  try {
+    const response = await axios.get(`http://localhost:4000/pets/adoptedPets`, {
+      params: { userId },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const updatePetInfo = async (petInfo) => {
   try {
     const response = await axios.put(

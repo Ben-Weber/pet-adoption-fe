@@ -9,7 +9,7 @@ import PetPage from "./Pages/PetPage";
 import Admin from "./Pages/Admin";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import BackToTop from "./Components/BackToTop";
-import { getPetInfo } from "./data/petsApi";
+import { getPetInfo, getUserAdoptedPets } from "./data/petsApi";
 import { getAllUsers } from "./data/usersApi";
 // import axios from "axios";
 // import Footer from "./Components/Footer";
@@ -23,6 +23,7 @@ function App() {
   const [registerNotice, setRegisterNotice] = useState("");
   const [AllUsersInfo, SetAllUsersInfo] = useState({});
   const [petAdded, setPetAdded] = useState("");
+  const [userAdoptedPets, setUserAdoptedPets] = useState({});
 
   useEffect(() => {
     getPetInfo().then((response) => {
@@ -37,19 +38,30 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("userId");
-    if (loggedInUser) {
+    const id = localStorage.getItem("userId");
+    const firstName = localStorage.getItem("firstName");
+    const lastName = localStorage.getItem("lastName");
+    const isAdmin = localStorage.getItem("isAdmin");
+    const loggedInUser = {
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      isAdmin: isAdmin,
+    };
+    if (id) {
       setLoggedIn(loggedInUser);
       console.log("LS in currentUser: ", loggedInUser);
     }
   }, []);
 
-  // useEffect(() => {
-  //   localStorage.getItem("token", (error, value) => {
-  //     axios.defaults.headers.common["authorization"] = value;
-  //     console.log("token in header");
-  //   });
-  // }, []);
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    console.log(" app.js userId", userId);
+    getUserAdoptedPets(userId).then((response) => {
+      setUserAdoptedPets(response);
+      console.log("mypets app.js", response);
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -71,6 +83,8 @@ function App() {
           SetAllUsersInfo: SetAllUsersInfo,
           petAdded: petAdded,
           setPetAdded: setPetAdded,
+          userAdoptedPets: userAdoptedPets,
+          setUserAdoptedPets: setUserAdoptedPets,
         }}
       >
         <Router>

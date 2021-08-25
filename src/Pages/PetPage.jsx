@@ -26,6 +26,7 @@ function PetPage() {
     hypoallergenic,
     dietary,
     breed,
+    petStatus,
   } = petInfo;
 
   return (
@@ -52,6 +53,7 @@ function PetPage() {
               hypoallergenic={hypoallergenic}
               dietary={dietary}
               breed={breed}
+              status={petStatus}
             />
           )}
         </section>

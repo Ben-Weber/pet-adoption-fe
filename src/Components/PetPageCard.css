@@ -19,6 +19,11 @@
   text-align: justify;
 }
 
+.returnBtn {
+  width: 200px;
+  margin-top: 10px;
+}
+
 .modalInput {
   border: none;
   text-align: center;

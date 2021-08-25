@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AnimalCard from "./AnimalCard";
+import { useCon } from "../Context/AppContext";
+import { getUserAdoptedPets } from "../data/petsApi";
 
 function MyPets() {
+  const { loggedIn, userAdoptedPets, setUserAdoptedPets } = useCon();
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    userId &&
+      getUserAdoptedPets(userId).then((response) => {
+        setUserAdoptedPets(response);
+        console.log("mypets", response);
+      });
+  }, []);
   return (
     <div className="Card-container">
       <div className="d-flex flex-wrap justify-content-evenly">
-        <AnimalCard
-          petImg="https://bit.ly/3zVVUyr"
-          petName="Ollie"
-          petBio="Contrary to popular belief, ostriches do not bury their heads in sand to avoid danger."
-        />
-        <AnimalCard
-          petImg="https://bit.ly/3zWO2g9"
-          petName="Lio"
-          petBio="Baby lions are called cubs. A mother is a lioness, and a father is called a lion. They all live in a social group called a pride, which consists of about 25 ..."
-        />
+        {userAdoptedPets.length > 0 &&
+          userAdoptedPets &&
+          userAdoptedPets.map((pet, index) => {
+            return (
+              <AnimalCard
+                key={index}
+                petId={pet.petId}
+                petImg={pet.image}
+                petName={pet.petName}
+                petBio={pet.petBio}
+              />
+            );
+          })}
       </div>
     </div>
   );

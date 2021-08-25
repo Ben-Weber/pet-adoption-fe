@@ -6,6 +6,7 @@ import { useCon } from "../Context/AppContext";
 
 function NavBar() {
   const { loggedIn } = useCon();
+  const { isAdmin } = loggedIn;
   const history = useHistory();
   const changePage = () => {
     history.push("/");
@@ -38,14 +39,14 @@ function NavBar() {
               Search
             </Nav.Link>
             {loggedIn && (
-              <>
-                <Nav.Link as={Link} to="/myPetsPage">
-                  My Favorite Page
-                </Nav.Link>
-                <Nav.Link as={Link} to="/admin">
-                  Admin Portal
-                </Nav.Link>
-              </>
+              <Nav.Link as={Link} to="/myPetsPage">
+                My Favorite Page
+              </Nav.Link>
+            )}
+            {isAdmin == 1 && (
+              <Nav.Link as={Link} to="/admin">
+                Admin Portal
+              </Nav.Link>
             )}
           </Nav>
           {loggedIn && (

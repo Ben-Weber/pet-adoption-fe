@@ -7,7 +7,7 @@ import { useCon } from "../Context/AppContext";
 
 function HomeWelcome() {
   const { currentUser, loggedIn } = useCon();
-  const { firstName, lastName } = currentUser;
+  const { firstName, lastName } = loggedIn;
 
   const history = useHistory();
   const changePage = () => {

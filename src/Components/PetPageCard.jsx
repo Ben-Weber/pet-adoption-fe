@@ -45,7 +45,7 @@ function Alert(props) {
 }
 
 function PetPageCard(props) {
-  const { loggedIn } = useCon();
+  const { loggedIn, userAdoptedPets } = useCon();
   const userId = localStorage.getItem("userId");
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [petStatus, setPetStatus] = useState("");
@@ -58,6 +58,10 @@ function PetPageCard(props) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    console.log("userAdoptedPets", userAdoptedPets);
+  }, []);
+
   const {
     img,
     name,
@@ -69,6 +73,7 @@ function PetPageCard(props) {
     hypoallergenic,
     dietary,
     breed,
+    status,
   } = props;
   // console.log("props", props);
 
@@ -90,16 +95,19 @@ function PetPageCard(props) {
   const handleAdopt = () => {
     setPetStatus("Adopted");
     setOpenSnackBar(true);
+    window.location.reload();
   };
 
   const handleFoster = () => {
     setPetStatus("Fostered");
     setOpenSnackBar(true);
+    window.location.reload();
   };
 
   const handleReturn = () => {
-    setPetStatus("Returned");
+    setPetStatus("Sheltered");
     setOpenSnackBar(true);
+    window.location.reload();
   };
 
   const [input, setInput] = useState({});
@@ -130,32 +138,43 @@ function PetPageCard(props) {
                 alt="dog"
               />
               {loggedIn && (
-                <div className="d-flex justify-content-evenly align-items-end">
-                  <Button
-                    className="btn btn-success mt-3"
-                    onClick={handleAdopt}
-                  >
-                    Adopt
-                  </Button>
-                  <Button className="btn btn-success" onClick={handleFoster}>
-                    Foster
-                  </Button>
-                  <Button className="btn btn-secondary" onClick={handleReturn}>
-                    Return
-                  </Button>
-                  {/* <div
-                    className="btn btn-outline-success"
-                    onClick={handleSaveForLater}
-                  >
-                    Save For Later
-                  </div> */}
+                <section className="d-flex justify-content-evenly align-items-end">
+                  {status !== "Adopted" && (
+                    <>
+                      <Button
+                        className="btn btn-success mt-3"
+                        onClick={handleAdopt}
+                      >
+                        Adopt
+                      </Button>
+
+                      {status !== "Fostered" && (
+                        <Button
+                          className="btn btn-success"
+                          onClick={handleFoster}
+                        >
+                          Foster
+                        </Button>
+                      )}
+                    </>
+                  )}
+
+                  {status !== "Sheltered" && (
+                    <Button
+                      className="btn btn-secondary returnBtn"
+                      onClick={handleReturn}
+                    >
+                      Return
+                    </Button>
+                  )}
+
                   <div
                     className="btn btn-outline-success"
                     onClick={() => setOpen(!open)}
                   >
                     Edit {name}'s Info
                   </div>
-                </div>
+                </section>
               )}
             </Paper>
           </Grid>
@@ -198,6 +217,10 @@ function PetPageCard(props) {
                   <tr>
                     <th scope="row">Breed</th>
                     <td colSpan="2">{breed}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Status</th>
+                    <td colSpan="2">{status}</td>
                   </tr>
                 </tbody>
               </table>
@@ -326,6 +349,18 @@ function PetPageCard(props) {
                           name="breed"
                           type="text"
                           defaultValue={breed}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Status</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="status"
+                          type="text"
+                          defaultValue={status}
                           onChange={handleChange}
                         />
                       </td>
