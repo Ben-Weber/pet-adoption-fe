@@ -50,17 +50,16 @@ function App() {
     };
     if (id) {
       setLoggedIn(loggedInUser);
-      console.log("LS in currentUser: ", loggedInUser);
     }
   }, []);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    console.log(" app.js userId", userId);
-    getUserAdoptedPets(userId).then((response) => {
-      setUserAdoptedPets(response);
-      console.log("mypets app.js", response);
-    });
+    if (userId) {
+      getUserAdoptedPets(userId).then((response) => {
+        setUserAdoptedPets(response);
+      });
+    }
   }, []);
 
   return (

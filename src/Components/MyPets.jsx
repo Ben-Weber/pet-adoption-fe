@@ -11,7 +11,6 @@ function MyPets() {
     userId &&
       getUserAdoptedPets(userId).then((response) => {
         setUserAdoptedPets(response);
-        console.log("mypets", response);
       });
   }, []);
   return (

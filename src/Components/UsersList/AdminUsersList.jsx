@@ -15,7 +15,6 @@ function AdminUsersList() {
   //todo work on maping each users pet images
   const getPetByUserId = (userId) => {
     getUserAdoptedPets(userId).then((response) => {
-      console.log("getPetByUserId", response);
       setUserPets(response);
     });
   };
@@ -28,8 +27,6 @@ function AdminUsersList() {
   };
 
   useEffect(() => {
-    // console.log(" adopted in userList", userAdoptedPets);
-    // console.log(AllUsersInfo[0].userId);
     console.log("UserPets", userPets);
   }, []);
 

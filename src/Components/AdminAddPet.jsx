@@ -34,7 +34,6 @@ function Admin_AddPet() {
 
   const onSubmit = async (data) => {
     const finaldata = { ...data, ...imageUrl };
-    console.log(finaldata);
     await addPet(finaldata);
     setPetAdded(true);
   };
@@ -49,7 +48,6 @@ function Admin_AddPet() {
       .post("https://api.cloudinary.com/v1_1/petapet/image/upload", formData)
       .then((response) => {
         setImageUrl({ imageUrl: response.data.secure_url });
-        console.log("imageUrl state", response.data.secure_url);
       });
   };
 

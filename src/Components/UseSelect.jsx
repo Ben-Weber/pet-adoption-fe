@@ -27,7 +27,6 @@ function UseSelect(props) {
   const handleChange = (event) => {
     let newVal = event.target.value;
     setSelected(newVal);
-    console.log(newVal);
   };
 
   const handleClose = () => {

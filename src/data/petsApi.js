@@ -108,7 +108,7 @@ export const updatePetInfo = async (petInfo) => {
   try {
     const response = await axios.put(
       "http://localhost:4000/pets/updatePetInfo",
-      petInfo
+      { petInfo }
     );
     return response;
   } catch (error) {

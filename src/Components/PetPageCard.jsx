@@ -46,6 +46,7 @@ function Alert(props) {
 
 function PetPageCard(props) {
   const { loggedIn, userAdoptedPets } = useCon();
+  const { isAdmin } = loggedIn;
   const userId = localStorage.getItem("userId");
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [petStatus, setPetStatus] = useState("");
@@ -75,7 +76,6 @@ function PetPageCard(props) {
     breed,
     status,
   } = props;
-  // console.log("props", props);
 
   const handleCloseSnackBar = (event, reason) => {
     if (reason === "clickaway") {
@@ -114,7 +114,6 @@ function PetPageCard(props) {
 
   useEffect(() => {
     setInput({ ...props, petId: petId });
-    console.log("props", props);
   }, [props]);
 
   const handleChange = (e) => {
@@ -168,12 +167,14 @@ function PetPageCard(props) {
                     </Button>
                   )}
 
-                  <div
-                    className="btn btn-outline-success"
-                    onClick={() => setOpen(!open)}
-                  >
-                    Edit {name}'s Info
-                  </div>
+                  {isAdmin == 1 && (
+                    <div
+                      className="btn btn-outline-success"
+                      onClick={() => setOpen(!open)}
+                    >
+                      Edit {name}'s Info
+                    </div>
+                  )}
                 </section>
               )}
             </Paper>
