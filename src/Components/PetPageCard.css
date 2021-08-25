@@ -18,3 +18,12 @@
 .DetailsInfo {
   text-align: justify;
 }
+
+.modalInput {
+  border: none;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 350px;
+}

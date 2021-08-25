@@ -38,9 +38,14 @@ function NavBar() {
               Search
             </Nav.Link>
             {loggedIn && (
-              <Nav.Link as={Link} to="/myPetsPage">
-                My Favorite Page
-              </Nav.Link>
+              <>
+                <Nav.Link as={Link} to="/myPetsPage">
+                  My Favorite Page
+                </Nav.Link>
+                <Nav.Link as={Link} to="/admin">
+                  Admin Portal
+                </Nav.Link>
+              </>
             )}
           </Nav>
           {loggedIn && (

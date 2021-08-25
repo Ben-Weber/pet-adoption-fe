@@ -6,9 +6,27 @@ import { Button } from "react-bootstrap";
 import "./PetPageCard.css";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { updatePetStatus } from "../data/petsApi";
+import { updatePetStatus, updatePetInfo } from "../data/petsApi";
 import { useLocation } from "react-router-dom";
 import { useCon } from "../Context/AppContext";
+
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+
+const useStylesModal = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    width: "fit-content",
   },
 }));
 
@@ -33,6 +52,12 @@ function PetPageCard(props) {
   const location = useLocation();
   let petId = location.state.petId;
   const classes = useStyles();
+  const classesModal = useStylesModal();
+  const [open, setOpen] = useState(false);
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
   const {
     img,
     name,
@@ -45,6 +70,7 @@ function PetPageCard(props) {
     dietary,
     breed,
   } = props;
+  // console.log("props", props);
 
   const handleCloseSnackBar = (event, reason) => {
     if (reason === "clickaway") {
@@ -76,10 +102,20 @@ function PetPageCard(props) {
     setOpenSnackBar(true);
   };
 
-  // const handleSaveForLater = () => {
-  //   setPetStatus("Saved For Later");
-  //   setOpenSnackBar(true);
-  // };
+  const [input, setInput] = useState({});
+
+  useEffect(() => {
+    setInput({ ...props, petId: petId });
+    console.log("props", props);
+  }, [props]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setInput((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   return (
     <>
@@ -113,6 +149,12 @@ function PetPageCard(props) {
                   >
                     Save For Later
                   </div> */}
+                  <div
+                    className="btn btn-outline-success"
+                    onClick={() => setOpen(!open)}
+                  >
+                    Edit {name}'s Info
+                  </div>
                 </div>
               )}
             </Paper>
@@ -163,6 +205,149 @@ function PetPageCard(props) {
           </Grid>
         </Grid>
       </div>
+
+      <Modal
+        className={classesModal.modal}
+        open={open}
+        onClose={handleCloseModal}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className="note">
+            <Grid item xs={6}>
+              <Paper className={classes.paper}>
+                <table className="table ">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Name</th>
+                      <td>
+                        <input
+                          className="modalInput"
+                          name="name"
+                          type="text"
+                          defaultValue={name}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Type</th>
+                      <td>
+                        <input
+                          className="modalInput"
+                          name="type"
+                          type="text"
+                          defaultValue={type}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Height</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="height"
+                          type="text"
+                          defaultValue={height}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Weight</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="weight"
+                          type="text"
+                          defaultValue={weight}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Color</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="color"
+                          type="text"
+                          defaultValue={color}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Bio</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="bio"
+                          type="text"
+                          defaultValue={bio}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Hypoallergenic</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="hypoallergenic"
+                          type="text"
+                          defaultValue={hypoallergenic}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Dietary Restrictions</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="diet"
+                          type="text"
+                          defaultValue={dietary}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Breed</th>
+                      <td colSpan="2">
+                        <input
+                          className="modalInput"
+                          name="breed"
+                          type="text"
+                          defaultValue={breed}
+                          onChange={handleChange}
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <Button
+                  onClick={() => {
+                    console.log(input);
+                    updatePetInfo(input);
+                    handleCloseModal();
+                  }}
+                >
+                  Update
+                </Button>
+              </Paper>
+            </Grid>
+          </div>
+        </Fade>
+      </Modal>
+
       <Snackbar
         open={openSnackBar}
         autoHideDuration={3000}

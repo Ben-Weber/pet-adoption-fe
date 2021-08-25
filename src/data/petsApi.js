@@ -91,3 +91,15 @@ export const searchResult = async (data) => {
     console.log(error);
   }
 };
+
+export const updatePetInfo = async (petInfo) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:4000/pets/updatePetInfo",
+      petInfo
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
