@@ -34,7 +34,7 @@ const TextFieldGreen = withStyles({
 function Login() {
   const history = useHistory();
 
-  const { setCurrentUser, setShow, setLoggedIn } = useCon();
+  const { setCurrentUser, setShow, setLoggedIn, AllUsersInfo } = useCon();
 
   const {
     register,
@@ -44,16 +44,27 @@ function Login() {
 
   const onSubmit = async (data) => {
     setShow(false);
-    loginUser(data).then((user) => {
-      setCurrentUser(user);
-      setLoggedIn(user);
-
-      if (user.isAdmin) {
-        history.push("/admin");
-      } else {
-        history.push("/homeWelcome");
+    let findUser;
+    AllUsersInfo.forEach((user) => {
+      if (user.email === data.email) {
+        loginUser(data).then((user) => {
+          setCurrentUser(user);
+          setLoggedIn(user);
+          if (user.isAdmin) {
+            history.push("/admin");
+          } else {
+            history.push("/homeWelcome");
+          }
+        });
+        findUser = true;
+        return findUser;
       }
     });
+    if (!findUser) {
+      return alert(
+        "Please Make Sure You Are Registered and Your Credentials Are Correct"
+      );
+    }
   };
 
   return (
