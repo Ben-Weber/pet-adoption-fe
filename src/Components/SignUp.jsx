@@ -46,6 +46,9 @@ function SignUp() {
     setShow(false);
     await registerUser(data);
     setRegisterNotice(true);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return (

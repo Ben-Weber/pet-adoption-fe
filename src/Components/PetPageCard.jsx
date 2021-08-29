@@ -97,7 +97,7 @@ function PetPageCard(props) {
     setOpenSnackBar(true);
     setTimeout(() => {
       window.location.reload();
-    }, 2000);
+    }, 1500);
   };
 
   const handleFoster = () => {
@@ -105,7 +105,7 @@ function PetPageCard(props) {
     setOpenSnackBar(true);
     setTimeout(() => {
       window.location.reload();
-    }, 2000);
+    }, 1500);
   };
 
   const handleReturn = () => {
@@ -113,7 +113,7 @@ function PetPageCard(props) {
     setOpenSnackBar(true);
     setTimeout(() => {
       window.location.reload();
-    }, 2000);
+    }, 1500);
   };
 
   const [input, setInput] = useState({});

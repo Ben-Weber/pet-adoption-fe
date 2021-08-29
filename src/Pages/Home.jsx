@@ -95,7 +95,7 @@ function HomeNew() {
         onClose={handleCloseSnackBar}
       >
         <Alert onClose={handleCloseSnackBar} severity="success">
-          Success! Please Login...
+          Success! PLEASE LOGIN Now
         </Alert>
       </Snackbar>
     </>
